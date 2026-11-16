@@ -24,3 +24,6 @@ Non richiede account ai visitatori e non prevede l'inserimento di dati personali
 
 ## Correzione Arte e Immagine
 La patina del laboratorio di restauro è ora su un canvas separato: trascinando il dito o il mouse si scopre il dipinto. È disponibile il pulsante «Ripristina la patina».
+
+
+Correzione v2 Arte: singolo canvas con pennello che ripristina direttamente il dipinto. Pulsante Scopri tutto per verifica e accessibilità.
