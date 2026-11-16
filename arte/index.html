@@ -33,6 +33,50 @@ main{max-width:1680px;margin:auto;padding:0 18px 22px}
 .note{font-size:12px;text-align:center;margin:13px auto;color:#5b4430}
 @media(max-width:1000px){header{grid-template-columns:245px 1fr 120px}.brand img{width:70px;height:70px}.brand div{font-size:12px}.stage{grid-template-columns:190px 1fr}.guide{min-height:370px;padding-top:115px}.guide img{max-height:365px}.guide p{font-size:13px}.overlay{position:static;margin-top:10px}.artarea{padding:5px}}
 @media(max-width:650px){header{grid-template-columns:70px 1fr;gap:8px;padding:9px}.brand img{width:65px;height:65px}.brand div{display:none}.headline h1{font-size:29px}.back{grid-column:1/-1;justify-self:center}.stage{grid-template-columns:1fr}.guide{min-height:0;max-height:230px;justify-content:start;padding-top:0}.guide img{max-height:225px;width:145px}.guide p{position:relative;top:auto;left:auto;right:auto;margin:auto 0 auto 12px;max-width:235px;font-size:13px}.guide p::after{left:-16px;bottom:25px;transform:rotate(135deg);width:16px;height:16px}.artarea{border-width:5px}.quiz{grid-template-columns:1fr}.quiz-card h3{min-height:0}.overlay{flex-wrap:wrap}.progress{min-width:150px}.frame .tip{width:170px}}
+
+/* v11: leggibilità e disposizione del personaggio */
+body{font-size:18px;line-height:1.5}
+.brand div{font-size:18px;line-height:1.35}
+.headline small{font-size:clamp(19px,2vw,29px)}
+.headline p{font-size:clamp(20px,1.9vw,27px)}
+.back{font-size:17px;padding:13px 18px}
+.stage{grid-template-columns:260px minmax(0,1fr)}
+.guide{min-height:610px;padding-top:0;align-items:flex-end;justify-content:center}
+.guide img{width:100%;max-height:570px;object-position:bottom}
+.guide p{top:auto;bottom:355px;left:2px;right:3px;font-size:clamp(18px,1.45vw,23px);line-height:1.35;padding:16px 12px}
+.guide p::after{left:65%;bottom:-18px}
+.progress{font-size:20px;min-width:250px}
+.btn{font-size:19px}
+.art-caption{font-size:18px;line-height:1.5}
+.quiz-card h3{font-size:clamp(20px,1.65vw,25px);line-height:1.35;min-height:78px}
+.option{font-size:clamp(18px,1.35vw,22px);padding:11px 13px;line-height:1.35}
+.explain{font-size:18px;line-height:1.45}
+.note{font-size:16px;line-height:1.5}
+.done{font-size:20px}
+@media(max-width:1100px){.stage{grid-template-columns:215px minmax(0,1fr)}.guide{min-height:470px}.guide img{max-height:450px}.guide p{bottom:290px;font-size:18px}.brand div{font-size:15px}}
+@media(max-width:650px){body{font-size:17px}.stage{grid-template-columns:1fr}.guide{min-height:0;max-height:250px;justify-content:flex-start}.guide img{height:235px;width:145px}.guide p{position:relative;top:auto;bottom:auto;left:auto;right:auto;margin:auto 0 auto 8px;max-width:245px;font-size:17px}.guide p::after{left:-15px;bottom:25px}.headline p{font-size:18px}.art-caption{font-size:16px}.quiz-card h3{min-height:0}.option{font-size:19px}.note{font-size:15px}.brand div{display:none}}
+
+/* ACCESSIBILITÀ V12: leggibilità per tutti i laboratori, BES e DSA */
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:Arial,system-ui,sans-serif;line-height:1.55}
+button,a{touch-action:manipulation}
+button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.brand div{font-size:17px;line-height:1.4}
+.headline small{font-size:clamp(19px,1.8vw,27px)}
+.headline p{font-size:clamp(20px,1.8vw,26px);line-height:1.4}
+.back{font-size:17px;line-height:1.4}
+.guide p,.bubble{font-size:clamp(17px,1.4vw,22px);line-height:1.45}
+.progress{font-size:19px}
+.btn{font-size:19px;min-height:52px;line-height:1.35}
+.quiz-card h3{font-size:clamp(20px,1.6vw,25px);line-height:1.45;min-height:0}
+.option{font-size:clamp(18px,1.35vw,22px);line-height:1.45;min-height:50px;padding:11px 14px}
+.explain{font-size:18px;line-height:1.5}
+.note{font-size:16px;line-height:1.6}
+.done{font-size:20px;line-height:1.5}
+@media(max-width:1000px){.quiz{grid-template-columns:1fr}.quiz-card h3{font-size:22px}.option{font-size:20px}}
+@media(max-width:650px){.brand div{font-size:14px}.back{font-size:16px}.quiz-card{padding:16px}.note{font-size:15px}}
 </style></head><body>
 <header><div class="brand"><img src="../logo_istituto_trasparente.png" alt="Logo originale Istituto Comprensivo Armando Sforzi"><div>I.C. Armando Sforzi<br>Istituto Comprensivo</div></div>
 <div class="headline"><small>MISSIONE PUCCINI</small><h1>PICCOLI RESTAURATORI</h1><p>Laboratorio di Arte e Immagine</p></div>

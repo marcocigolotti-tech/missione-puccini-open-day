@@ -25,3 +25,10 @@ v9: solo pagina Arte riprogettata con layout ispirato al riferimento, Wishab con
 
 ## v10 — Arte e Immagine
 Mascotte laterale ingrandita con fumetto; didascalia dell’affresco con autore, collocazione, link a Wikimedia Commons e pubblico dominio; intestazione «Istituto Comprensivo» su un’unica riga. Home e altri laboratori invariati.
+
+
+v11: caratteri ingranditi, fumetto vicino al bambino e pulizia bordi della Wishab. Home invariata.
+
+
+## v12 — leggibilità estesa
+Caratteri e pulsanti ingranditi, spaziatura, contrasto e indicatori di focus migliorati nella homepage e in tutti e dieci i laboratori. Contenuti e meccaniche invariati. Controllare il layout su LIM e tablet prima dell'Open Day.
