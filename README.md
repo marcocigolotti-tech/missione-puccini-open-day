@@ -21,3 +21,6 @@ La pagina iniziale `index.html` collega le dieci applicazioni nelle rispettive s
 Non richiede account ai visitatori e non prevede l'inserimento di dati personali. Prima dell'evento, verifica le app sui browser e sulle LIM utilizzate.
 
 **Crediti:** Prof. Marco Cigolotti · Realizzato con il supporto dell'IA.
+
+## Correzione Arte e Immagine
+La patina del laboratorio di restauro è ora su un canvas separato: trascinando il dito o il mouse si scopre il dipinto. È disponibile il pulsante «Ripristina la patina».
