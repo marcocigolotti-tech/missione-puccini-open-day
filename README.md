@@ -1,18 +1,16 @@
-# MISSIONE PUCCINI – aggiornamento Gioconda v3
+# Missione Puccini — v6
 
-Per aggiornare la sola applicazione Arte su GitHub Pages, sostituire **arte/index.html** e aggiungere **arte/bambino_felpa_grigia.png** e **arte/logo_istituto.jpg**. Le altre nove applicazioni non sono state modificate.
+Web app indipendenti per l’Open Day del 12 dicembre 2026, I.C. Armando Sforzi.
 
-La fotografia della Gioconda viene caricata da Wikimedia Commons quando si apre la pagina: serve la connessione Internet. Fonte: https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg (pubblico dominio).
+## Novità
+- Pagina iniziale completamente ridisegnata con mascotte e **logo originale**.
+- Laboratorio Arte riprogettato come vera pagina web interattiva, non come immagine statica.
+- Affresco di Michelangelo e spugna Wishab da fotografie fornite dall’utente.
+- Il puntatore mostra solo la punta reale della spugna, evitando l’effetto di braccio artificiale o monco.
+- Rimossi i pulsanti per scoprire l’intero dipinto.
+- Quiz integrato con le tre domande concordate.
 
-La pulitura è una simulazione didattica, non una procedura reale di restauro. Nessun dato personale richiesto.
+## Pubblicazione
+Caricare i contenuti della cartella direttamente nella root del repository GitHub; attivare Settings > Pages > Deploy from branch > main > /(root).
 
-
-## Arte e Immagine — Affresco v4
-La missione Arte usa `arte/creazione_di_adamo.jpg` e `arte/wishab.png` locali, senza dipendenze esterne. La pulitura è una simulazione didattica: la Wishab non è necessariamente adatta all'affresco reale della Cappella Sistina.
-
-
-## Aggiornamento v5
-- Pagina iniziale: mascotte con felpa grigia e logo istituto, disponibili anche senza rete.
-- Arte: rimossa la funzione «Scopri tutto il dipinto»; il restauro avviene con la Wishab virtuale.
-- La mano virtuale è stata estesa con un avambraccio e una manica.
-- Il logo e la mascotte non sono più duplicati nella pagina di Arte.
+Crediti: Prof. Marco Cigolotti · Realizzato con il supporto dell’IA.
