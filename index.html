@@ -39,6 +39,15 @@ button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4p
  .tile{min-height:170px}
  .tile strong{font-size:19px}
 }
+
+/* Missione Puccini v14 - controllo accessibile della grandezza del testo */
+#mp-text-controls{position:fixed;right:14px;bottom:14px;z-index:99999;display:flex;align-items:center;gap:6px;padding:8px;background:#fffdf5;border:2px solid #174d80;border-radius:16px;box-shadow:0 4px 18px #0005;color:#102f52;font-family:Arial,sans-serif;line-height:1.2}
+#mp-text-controls button{appearance:none;border:2px solid #174d80;background:#174d80;color:white;border-radius:9px;min-width:48px;min-height:46px;padding:6px 9px;font:bold 20px Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+#mp-text-controls button:focus-visible{outline:3px solid #f9b83d;outline-offset:2px}
+#mp-text-controls button:disabled{opacity:.42;cursor:default}
+#mp-text-controls .mp-reset{background:#fff;color:#174d80;font-size:16px;min-width:58px}
+#mp-text-controls .mp-level{font:bold 16px Arial,sans-serif;min-width:45px;text-align:center}
+@media(max-width:480px){#mp-text-controls{right:7px;bottom:7px;padding:5px;gap:4px}#mp-text-controls button{min-width:42px;min-height:42px;font-size:18px}#mp-text-controls .mp-level{font-size:14px;min-width:38px}}
 </style></head><body><header class="hero"><div class="hero-inner"><div class="hero-copy"><div class="kicker">SCUOLA SECONDARIA G. PUCCINI · OPEN DAY 2026</div><h1>MISSIONE <span>PUCCINI</span></h1><p>Dieci laboratori, un'avventura da vivere insieme.</p><p>Esplora la scuola e conquista <strong>almeno 6 timbri</strong> sul tuo passaporto!</p></div><div class="school"><img src="logo_istituto_trasparente.png" alt="Logo originale dell'Istituto Comprensivo Armando Sforzi"><small>I.C. Armando Sforzi<br>Istituto Comprensivo</small></div></div></header><main><div class="intro"><div><h2>Quale laboratorio vuoi esplorare?</h2><p>Tocca una materia per iniziare la missione. Nessuna registrazione richiesta.</p></div><div class="counter">✦ 10 laboratori</div></div><div class="explore"><aside class="guide" aria-label="La mascotte indica i laboratori"><div class="guide-label">Scegli la tua avventura!</div><img src="bambino_indica.png" alt="Bambino con felpa grigia che indica i laboratori sulla destra"></aside><nav class="grid" aria-label="Laboratori disponibili"><a class="tile" href="italiano/index.html" style="--accent:#ce5668"><span class="icon" aria-hidden="true">📚</span><strong>Italiano</strong><small>Le parole nascoste</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
 <a class="tile" href="storia_geografia/index.html" style="--accent:#b4783e"><span class="icon" aria-hidden="true">🌍</span><strong>Storia e Geografia</strong><small>La macchina del tempo</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
 <a class="tile" href="matematica/index.html" style="--accent:#c58b21"><span class="icon" aria-hidden="true">🔐</span><strong>Matematica</strong><small>La cassaforte dei numeri</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
@@ -48,4 +57,31 @@ button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4p
 <a class="tile" href="musica/index.html" style="--accent:#7957b2"><span class="icon" aria-hidden="true">🎵</span><strong>Musica</strong><small>Il ritmo segreto</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
 <a class="tile" href="inglese/index.html" style="--accent:#3976bd"><span class="icon" aria-hidden="true">🇬🇧</span><strong>Inglese</strong><small>Mission English</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
 <a class="tile" href="francese/index.html" style="--accent:#c65c89"><span class="icon" aria-hidden="true">🇫🇷</span><strong>Francese</strong><small>Mission Paris</small><span class="go">ENTRA NEL LABORATORIO →</span></a>
-<a class="tile" href="motorie/index.html" style="--accent:#42944f"><span class="icon" aria-hidden="true">🏃</span><strong>Scienze motorie</strong><small>Muoviti e scopri</small><span class="go">ENTRA NEL LABORATORIO →</span></a></nav></div></main><footer class="foot">I.C. Armando Sforzi · Scuola Media G. Puccini · Prof. Marco Cigolotti · Realizzato con il supporto dell’IA</footer></body></html>
+<a class="tile" href="motorie/index.html" style="--accent:#42944f"><span class="icon" aria-hidden="true">🏃</span><strong>Scienze motorie</strong><small>Muoviti e scopri</small><span class="go">ENTRA NEL LABORATORIO →</span></a></nav></div></main><footer class="foot">I.C. Armando Sforzi · Scuola Media G. Puccini · Prof. Marco Cigolotti · Realizzato con il supporto dell’IA</footer><script>
+/* Controllo del testo in ogni pagina. La preferenza resta sul dispositivo. */
+(function(){
+'use strict';
+var key='missione-puccini-text-scale';
+var scale=1;
+try{var saved=Number(localStorage.getItem(key));if(saved>=1&&saved<=1.6)scale=saved;}catch(e){}
+var selectors='h1,h2,h3,h4,p,small,button,a,label,legend,li,dt,dd,summary,blockquote,figcaption,.eyebrow,.lead,.feedback,.note,.muted,.tile strong,.tile small,.tile .go,.school small,.counter,.guide-label,.brand div,.progress,.bubble,.option,.choice,.explain,.quiz-card .num,.headline small,.headline p,.intro,.foot';
+var originals=new WeakMap();
+var bar=document.createElement('div');bar.id='mp-text-controls';bar.setAttribute('role','group');bar.setAttribute('aria-label','Dimensione del testo');
+bar.innerHTML='<button type="button" id="mp-smaller" aria-label="Riduci il testo">A−</button><span id="mp-text-level" class="mp-level" aria-live="polite">100%</span><button type="button" id="mp-bigger" aria-label="Ingrandisci il testo">A+</button><button type="button" class="mp-reset" id="mp-normal" aria-label="Ripristina dimensione normale">100%</button>';
+function elements(){return Array.from(document.querySelectorAll(selectors)).filter(function(el){return !bar.contains(el)&&!el.closest('#mp-text-controls')});}
+function baseline(el){var v=originals.get(el);if(v===undefined){v=parseFloat(getComputedStyle(el).fontSize);if(!Number.isFinite(v))v=18;originals.set(el,v);}return v;}
+function apply(){
+  elements().forEach(function(el){el.style.fontSize=(baseline(el)*scale).toFixed(2)+'px';});
+  document.getElementById('mp-text-level').textContent=Math.round(scale*100)+'%';
+  document.getElementById('mp-smaller').disabled=scale<=1.001;
+  document.getElementById('mp-bigger').disabled=scale>=1.599;
+  try{localStorage.setItem(key,String(scale));}catch(e){}
+}
+function set(next){scale=Math.max(1,Math.min(1.6,Math.round(next*10)/10));apply();}
+bar.querySelector('#mp-smaller').addEventListener('click',function(){set(scale-.1)});
+bar.querySelector('#mp-bigger').addEventListener('click',function(){set(scale+.1)});
+bar.querySelector('#mp-normal').addEventListener('click',function(){set(1)});
+function init(){document.body.appendChild(bar);apply();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script></body></html>

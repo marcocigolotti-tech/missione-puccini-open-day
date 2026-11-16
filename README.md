@@ -35,3 +35,7 @@ Caratteri e pulsanti ingranditi, spaziatura, contrasto e indicatori di focus mig
 
 
 v13: solo posizione del fumetto nel laboratorio Arte; altre pagine e attività invariate.
+
+
+### v14 - Testo regolabile in tutte le 11 pagine
+Pulsanti fissi A− / A+ / 100%, dal 100% al 160%, passi del 10%. Preferenza salvata nel browser e condivisa fra tutti i laboratori. Il controllo cambia le dimensioni del testo, non la scala dell’affresco e non i meccanismi dei giochi.

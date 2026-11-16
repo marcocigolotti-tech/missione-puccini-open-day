@@ -82,6 +82,15 @@ button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4p
  .guide p{top:auto!important;bottom:clamp(115px,19vw,215px)!important;left:2px;right:3px;z-index:3}
  .guide p::after{left:48%}
 }
+
+/* Missione Puccini v14 - controllo accessibile della grandezza del testo */
+#mp-text-controls{position:fixed;right:14px;bottom:14px;z-index:99999;display:flex;align-items:center;gap:6px;padding:8px;background:#fffdf5;border:2px solid #174d80;border-radius:16px;box-shadow:0 4px 18px #0005;color:#102f52;font-family:Arial,sans-serif;line-height:1.2}
+#mp-text-controls button{appearance:none;border:2px solid #174d80;background:#174d80;color:white;border-radius:9px;min-width:48px;min-height:46px;padding:6px 9px;font:bold 20px Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+#mp-text-controls button:focus-visible{outline:3px solid #f9b83d;outline-offset:2px}
+#mp-text-controls button:disabled{opacity:.42;cursor:default}
+#mp-text-controls .mp-reset{background:#fff;color:#174d80;font-size:16px;min-width:58px}
+#mp-text-controls .mp-level{font:bold 16px Arial,sans-serif;min-width:45px;text-align:center}
+@media(max-width:480px){#mp-text-controls{right:7px;bottom:7px;padding:5px;gap:4px}#mp-text-controls button{min-width:42px;min-height:42px;font-size:18px}#mp-text-controls .mp-level{font-size:14px;min-width:38px}}
 </style></head><body>
 <header><div class="brand"><img src="../logo_istituto_trasparente.png" alt="Logo originale Istituto Comprensivo Armando Sforzi"><div>I.C. Armando Sforzi<br>Istituto Comprensivo</div></div>
 <div class="headline"><small>MISSIONE PUCCINI</small><h1>PICCOLI RESTAURATORI</h1><p>Laboratorio di Arte e Immagine</p></div>
@@ -95,4 +104,31 @@ button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4p
 </main><script>
 'use strict';const questions=[{q:'Quale strumento usa spesso un restauratore per osservare i dettagli?',a:['Occhiali di ingrandimento','Binocolo','Cannocchiale'],correct:0,why:'Gli occhiali di ingrandimento aiutano a osservare piccoli dettagli lasciando libere le mani.'},{q:'Che cosa significa conservare un’opera d’arte?',a:['Proteggerla dal tempo','Cambiarne sempre i colori','Ridipingerla totalmente'],correct:0,why:'Conservare significa proteggere e rispettare l’opera, non trasformarla.'},{q:'Quali sono i colori primari della pittura tradizionale?',a:['Rosso, giallo e blu','Verde, arancione e viola','Bianco, nero e grigio'],correct:0,why:'Nel modello tradizionale RYB, i colori primari sono rosso, giallo e blu.'}];let completed=0;const holder=document.getElementById('questions');function buildQuiz(){completed=0;holder.innerHTML='';document.getElementById('done').classList.add('hidden');questions.forEach((q,i)=>{const box=document.createElement('div');box.className='quiz-card';const title=document.createElement('h3');title.innerHTML='<span class="num">'+(i+1)+'</span>';title.append(document.createTextNode(q.q));box.append(title);const explanation=document.createElement('p');explanation.className='explain hidden';q.a.forEach((answer,j)=>{const btn=document.createElement('button');btn.className='option';btn.textContent=answer;btn.onclick=()=>{if(box.dataset.answered)return;box.dataset.answered='yes';box.querySelectorAll('button').forEach((b,k)=>{b.disabled=true;if(k===q.correct)b.classList.add('correct');if(k===j&&j!==q.correct)b.classList.add('wrong')});explanation.textContent=(j===q.correct?'✓ Esatto! ':'La risposta corretta è: '+q.a[q.correct]+'. ')+q.why;explanation.classList.remove('hidden');completed++;if(completed===questions.length)document.getElementById('done').classList.remove('hidden')};box.append(btn)});box.append(explanation);holder.append(box)})}document.getElementById('again').onclick=buildQuiz;buildQuiz();
 const canvas=document.getElementById('painting'),ctx=canvas.getContext('2d',{willReadFrequently:true}),W=canvas.width,H=canvas.height,frame=document.getElementById('frame'),tip=document.getElementById('tip');const under=document.createElement('canvas'),dirt=document.createElement('canvas');under.width=dirt.width=W;under.height=dirt.height=H;const uc=under.getContext('2d'),dc=dirt.getContext('2d',{willReadFrequently:true});let loaded=false,drag=false,previous=null,strokes=0;function render(){ctx.clearRect(0,0,W,H);ctx.drawImage(under,0,0);ctx.drawImage(dirt,0,0)}function seedPatina(){dc.globalCompositeOperation='source-over';dc.clearRect(0,0,W,H);const g=dc.createLinearGradient(0,0,W,H);g.addColorStop(0,'rgba(35,30,24,.62)');g.addColorStop(.55,'rgba(65,54,41,.67)');g.addColorStop(1,'rgba(35,30,26,.60)');dc.fillStyle=g;dc.fillRect(0,0,W,H);let seed=17;function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}for(let i=0;i<2200;i++){const x=rand()*W,y=rand()*H,r=3+rand()*45;dc.beginPath();dc.arc(x,y,r,0,Math.PI*2);dc.fillStyle=rand()>.5?'rgba(205,177,125,.038)':'rgba(0,0,0,.075)';dc.fill()}strokes=0;render();updateProgress()}function updateProgress(){const data=dc.getImageData(0,0,W,H).data;let remaining=0;for(let i=3;i<data.length;i+=64)remaining+=data[i]/255;const count=data.length/64;const pct=Math.min(100,Math.max(0,Math.round(100*(1-remaining/count))));document.getElementById('percent').textContent=pct+'%';document.getElementById('bar').style.width=pct+'%';if(pct>=75)document.getElementById('hint').textContent='Ottimo lavoro! Ora puoi completare le domande.'}const img=new Image();img.onload=()=>{uc.drawImage(img,0,0,W,H);loaded=true;seedPatina()};img.onerror=()=>{document.getElementById('hint').textContent='Immagine mancante: controlla creazione_di_adamo.jpg';};img.src='creazione_di_adamo.jpg';function position(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height,left:e.clientX-r.left,top:e.clientY-r.top}}function moveTip(e){const p=position(e);tip.style.left=p.left+'px';tip.style.top=p.top+'px';tip.style.display='block'}function rub(e){if(!drag||!loaded)return;if(e.cancelable)e.preventDefault();moveTip(e);const p=position(e);dc.save();dc.globalCompositeOperation='destination-out';dc.lineCap='round';dc.lineJoin='round';dc.lineWidth=52;dc.strokeStyle='rgba(0,0,0,.24)';dc.fillStyle='rgba(0,0,0,.24)';dc.beginPath();if(previous){dc.moveTo(previous.x,previous.y);dc.lineTo(p.x,p.y)}else{dc.moveTo(p.x,p.y);dc.lineTo(p.x+.1,p.y+.1)}dc.stroke();dc.beginPath();dc.arc(p.x,p.y,26,0,Math.PI*2);dc.fill();dc.restore();previous=p;render();strokes++;if(strokes%6===0)updateProgress()}canvas.addEventListener('pointerdown',e=>{if(!loaded)return;drag=true;previous=null;canvas.setPointerCapture(e.pointerId);rub(e)});canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')moveTip(e);rub(e)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>canvas.addEventListener(ev,()=>{drag=false;previous=null;updateProgress()}));canvas.addEventListener('pointerleave',()=>{if(!drag)tip.style.display='none'});document.getElementById('reset').onclick=()=>{if(loaded){seedPatina();document.getElementById('hint').textContent='Usa il dito, la penna LIM o il mouse.'}};
+</script><script>
+/* Controllo del testo in ogni pagina. La preferenza resta sul dispositivo. */
+(function(){
+'use strict';
+var key='missione-puccini-text-scale';
+var scale=1;
+try{var saved=Number(localStorage.getItem(key));if(saved>=1&&saved<=1.6)scale=saved;}catch(e){}
+var selectors='h1,h2,h3,h4,p,small,button,a,label,legend,li,dt,dd,summary,blockquote,figcaption,.eyebrow,.lead,.feedback,.note,.muted,.tile strong,.tile small,.tile .go,.school small,.counter,.guide-label,.brand div,.progress,.bubble,.option,.choice,.explain,.quiz-card .num,.headline small,.headline p,.intro,.foot';
+var originals=new WeakMap();
+var bar=document.createElement('div');bar.id='mp-text-controls';bar.setAttribute('role','group');bar.setAttribute('aria-label','Dimensione del testo');
+bar.innerHTML='<button type="button" id="mp-smaller" aria-label="Riduci il testo">A−</button><span id="mp-text-level" class="mp-level" aria-live="polite">100%</span><button type="button" id="mp-bigger" aria-label="Ingrandisci il testo">A+</button><button type="button" class="mp-reset" id="mp-normal" aria-label="Ripristina dimensione normale">100%</button>';
+function elements(){return Array.from(document.querySelectorAll(selectors)).filter(function(el){return !bar.contains(el)&&!el.closest('#mp-text-controls')});}
+function baseline(el){var v=originals.get(el);if(v===undefined){v=parseFloat(getComputedStyle(el).fontSize);if(!Number.isFinite(v))v=18;originals.set(el,v);}return v;}
+function apply(){
+  elements().forEach(function(el){el.style.fontSize=(baseline(el)*scale).toFixed(2)+'px';});
+  document.getElementById('mp-text-level').textContent=Math.round(scale*100)+'%';
+  document.getElementById('mp-smaller').disabled=scale<=1.001;
+  document.getElementById('mp-bigger').disabled=scale>=1.599;
+  try{localStorage.setItem(key,String(scale));}catch(e){}
+}
+function set(next){scale=Math.max(1,Math.min(1.6,Math.round(next*10)/10));apply();}
+bar.querySelector('#mp-smaller').addEventListener('click',function(){set(scale-.1)});
+bar.querySelector('#mp-bigger').addEventListener('click',function(){set(scale+.1)});
+bar.querySelector('#mp-normal').addEventListener('click',function(){set(1)});
+function init(){document.body.appendChild(bar);apply();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
 </script></body></html>
