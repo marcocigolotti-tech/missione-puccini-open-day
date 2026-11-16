@@ -1,0 +1,19 @@
+MISSIONE PUCCINI – OPEN DAY 12 DICEMBRE 2026
+
+CONTENUTO
+- index.html: pagina facoltativa di accesso alle 10 applicazioni.
+- 10 cartelle indipendenti: ogni cartella contiene un proprio index.html, con grafica e logica incluse.
+
+USO
+1. Apri una cartella di materia e fai doppio clic su index.html per utilizzarla anche senza Internet.
+2. Per GitHub Pages: carica l'intera struttura in un repository e abilita Pages dalla radice.
+3. Per ogni aula apri direttamente il link alla cartella corrispondente.
+4. Nessun login e nessun dato personale richiesto o memorizzato.
+5. Ogni app mostra la schermata "Missione completata" per ottenere il timbro cartaceo.
+
+NOTA DIDATTICA
+Questa è una prima versione operativa da testare con i docenti dei dipartimenti. Le prove sono prototipi semplici e non sostituiscono attività pratiche e laboratoriali.
+La missione Arte contiene anche un piccolo dipinto illustrato da scoprire con il dito o il mouse.
+
+CREDITI
+Prof. Marco Cigolotti · Realizzato con il supporto dell'IA.
