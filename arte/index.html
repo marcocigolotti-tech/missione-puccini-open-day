@@ -77,6 +77,11 @@ button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4p
 .done{font-size:20px;line-height:1.5}
 @media(max-width:1000px){.quiz{grid-template-columns:1fr}.quiz-card h3{font-size:22px}.option{font-size:20px}}
 @media(max-width:650px){.brand div{font-size:14px}.back{font-size:16px}.quiz-card{padding:16px}.note{font-size:15px}}
+/* v13: fumetto vicino al viso del bambino, senza alterare la grafica */
+@media(min-width:651px){
+ .guide p{top:auto!important;bottom:clamp(115px,19vw,215px)!important;left:2px;right:3px;z-index:3}
+ .guide p::after{left:48%}
+}
 </style></head><body>
 <header><div class="brand"><img src="../logo_istituto_trasparente.png" alt="Logo originale Istituto Comprensivo Armando Sforzi"><div>I.C. Armando Sforzi<br>Istituto Comprensivo</div></div>
 <div class="headline"><small>MISSIONE PUCCINI</small><h1>PICCOLI RESTAURATORI</h1><p>Laboratorio di Arte e Immagine</p></div>

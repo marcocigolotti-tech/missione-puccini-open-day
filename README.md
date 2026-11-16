@@ -32,3 +32,6 @@ v11: caratteri ingranditi, fumetto vicino al bambino e pulizia bordi della Wisha
 
 ## v12 — leggibilità estesa
 Caratteri e pulsanti ingranditi, spaziatura, contrasto e indicatori di focus migliorati nella homepage e in tutti e dieci i laboratori. Contenuti e meccaniche invariati. Controllare il layout su LIM e tablet prima dell'Open Day.
+
+
+v13: solo posizione del fumetto nel laboratorio Arte; altre pagine e attività invariate.
