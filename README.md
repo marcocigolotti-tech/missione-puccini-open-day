@@ -51,3 +51,8 @@ Arte congelata: unica modifica testuale «Quali sono i colori primari?». Missio
 ## v17 — Personaggi
 - Arte congelata: sostituita esclusivamente la mascotte con il restauratore a figura intera.
 - Inglese: inserito gentleman con bombetta e ombrello nell’intestazione, mantenendo gioco e audio della v16.
+
+
+## Versione 18
+- Arte: soltanto posizione fumetto sopra la testa del restauratore; restauro e domande invariati.
+- Inglese: 15 icone illustrate originali (immagini generate con IA), 3 prove per partita, rotazione senza ripetere le parole finché tutte e 15 sono state proposte. Risposte casuali, pronuncia inglese e testo regolabile.
