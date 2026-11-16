@@ -22,7 +22,7 @@ const ids=['hb','2b','4b','6b','pastel','brush','eraser','smudge'];
 let tool='hb',color='#171717',drawing=false,last=null,history=[],seed=0;
 ctx.fillStyle='white';ctx.fillRect(0,0,c.width,c.height);
 function snapshot(){if(history.length>=15)history.shift();history.push(ctx.getImageData(0,0,c.width,c.height))}
-function select(t){tool=t;ids.forEach(id=>document.getElementById(id).setAttribute('aria-pressed',String(id===t)));status.textContent=({hb:'HB: mina dura, deposito leggero e tratto asciutto.', '2b':'2B: grafite morbida e leggermente granulosa.', '4b':'4B: grafite scura, deposito ricco e texture visibile.', '6b':'6B: grafite molto morbida, intensa e materica.',pastel:'Pastello: colore granuloso.',brush:'Pennello: tratto coprente.',eraser:'Gomma: cancella i segni.',smudge:'Sfumino: passa sulla grafite e trascinala verso le zone chiare; la carica diminuisce gradualmente.'})[t]}
+function select(t){tool=t;ids.forEach(id=>document.getElementById(id).setAttribute('aria-pressed',String(id===t)));status.textContent=({hb:'HB: mina dura, deposito leggero e tratto asciutto.', '2b':'2B: grafite morbida e leggermente granulosa.', '4b':'4B: grafite scura, deposito ricco e texture visibile.', '6b':'6B: grafite molto morbida, intensa e materica.',pastel:'Pastello: colore granuloso.',brush:'Pennello: tratto coprente.',eraser:'Gomma: cancella i segni.',smudge:'Sfumino: trascina delicatamente la grafite lungo il movimento, senza creare macchie uniformi.'})[t]}
 ids.forEach(id=>document.getElementById(id).addEventListener('click',()=>select(id)));
 document.querySelectorAll('.swatch').forEach(b=>b.addEventListener('click',()=>{color=b.dataset.color;document.querySelectorAll('.swatch').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.getElementById('custom').value=color;if(tool==='eraser')select('pastel')}));
 document.getElementById('custom').addEventListener('input',e=>{color=e.target.value;document.querySelectorAll('.swatch').forEach(x=>x.setAttribute('aria-pressed','false'));if(tool==='eraser')select('pastel')});
@@ -34,56 +34,48 @@ function dot(x,y,r,alpha,ink){ctx.globalAlpha=alpha;ctx.fillStyle=ink;ctx.beginP
 // Simulazione materica: le matite depositano micro-particelle e fibre discontinue,
 // non una linea continua con larghezza/opacità variabile.
 
-// Sfumino a trasferimento: raccoglie grafite e pigmento dal foglio, li deposita
-// gradualmente e perde carica durante il trascinamento. Bordo radiale morbido.
-let smudgeLoad=0,smudgeRGB=[38,38,38];
+// Sfumino a trascinamento locale: non dipinge un disco grigio.
+// Ogni punto usa il colore realmente presente pochi pixel a monte,
+// preservando grana e dettaglio della grafite.
+let smudgeLast=null;
 function smudgeStroke(a,b){
  const size=+document.getElementById('size').value;
  const strength=+document.getElementById('smudgeStrength').value;
- const radius=Math.max(7,Math.min(39,5+size*.65));
+ const radius=Math.max(5,Math.min(28,3+size*.38));
  const distance=Math.hypot(b.x-a.x,b.y-a.y);
- const steps=Math.max(1,Math.ceil(distance/Math.max(2.5,radius*.28)));
- const pickup=.10+strength*.055,deposit=.075+strength*.055;
- for(let k=0;k<=steps;k++){
+ if(distance<.4)return; // Un clic fermo non crea macchie.
+ const vx=(b.x-a.x)/distance,vy=(b.y-a.y)/distance;
+ const steps=Math.max(1,Math.ceil(distance/Math.max(1.5,radius*.20)));
+ for(let k=1;k<=steps;k++){
   const t=k/steps,x=a.x+(b.x-a.x)*t,y=a.y+(b.y-a.y)*t;
-  const left=Math.max(0,Math.floor(x-radius-1)),top=Math.max(0,Math.floor(y-radius-1));
-  const right=Math.min(c.width,Math.ceil(x+radius+2)),bottom=Math.min(c.height,Math.ceil(y+radius+2));
-  const w=right-left,h=bottom-top;if(w<2||h<2)continue;
-  const pixels=ctx.getImageData(left,top,w,h),data=pixels.data;
-  // Campiona prima di scrivere: il pigmento non nasce dal bianco.
-  let ink=0,rr=0,gg=0,bb=0,weight=0;
-  for(let j=0;j<h;j+=2)for(let i=0;i<w;i+=2){
-   const dx=left+i-x,dy=top+j-y,rad=Math.hypot(dx,dy)/radius;
-   if(rad>.72)continue;
-   const at=(j*w+i)*4,r=data[at],g=data[at+1],bl=data[at+2];
-   const darkness=Math.max(0,1-(r+g+bl)/765);
-   const wgt=darkness*(1-rad*.6);ink+=darkness*(1-rad*.6);
-   rr+=r*wgt;gg+=g*wgt;bb+=bl*wgt;weight+=wgt;
-  }
-  const sampled=Math.min(.8,ink/Math.max(1,Math.PI*(radius*.72)**2/4)*1.65);
-  if(weight>.01){
-   const fraction=Math.min(.6,pickup*sampled);
-   const mixed=smudgeLoad+fraction;
-   if(mixed>0){
-    for(let ch=0;ch<3;ch++)smudgeRGB[ch]=(smudgeRGB[ch]*smudgeLoad+([rr,gg,bb][ch]/weight)*fraction)/mixed;
+  const reach=Math.max(2,radius*(.32+strength*.07));
+  const pad=Math.ceil(radius+reach+4);
+  const left=Math.max(0,Math.floor(x-pad)),top=Math.max(0,Math.floor(y-pad));
+  const right=Math.min(c.width,Math.ceil(x+pad+1)),bottom=Math.min(c.height,Math.ceil(y+pad+1));
+  const w=right-left,h=bottom-top;if(w<4||h<4)continue;
+  const src=ctx.getImageData(left,top,w,h),out=ctx.createImageData(w,h);
+  out.data.set(src.data);
+  const dat=src.data,od=out.data;
+  for(let j=1;j<h-1;j++)for(let i=1;i<w-1;i++){
+   const dx=left+i-x,dy=top+j-y;
+   const d=Math.hypot(dx,dy)/radius;
+   if(d>=1)continue;
+   const falloff=Math.pow(1-d*d,2.3);
+   const ix=Math.max(1,Math.min(w-2,Math.round(i-vx*reach)));
+   const iy=Math.max(1,Math.min(h-2,Math.round(j-vy*reach)));
+   const at=(j*w+i)*4,from=(iy*w+ix)*4;
+   // Solo un trasferimento leggero: i pigmenti scuri sono trascinati
+   // localmente e si attenuano; niente riempimento uniforme.
+   const mix=(.055+strength*.027)*falloff;
+   for(let ch=0;ch<3;ch++){
+    const source=(dat[from+ch]*3+
+      dat[((iy-1)*w+ix)*4+ch]+dat[((iy+1)*w+ix)*4+ch]+
+      dat[(iy*w+ix-1)*4+ch]+dat[(iy*w+ix+1)*4+ch])/7;
+    od[at+ch]=Math.round(dat[at+ch]*(1-mix)+source*mix);
    }
-   smudgeLoad=Math.min(.85,mixed);
+   od[at+3]=255;
   }
-  const loadBefore=smudgeLoad;
-  if(loadBefore<.001)continue;
-  const amount=deposit*loadBefore;
-  for(let j=0;j<h;j++)for(let i=0;i<w;i++){
-   const dx=left+i+.5-x,dy=top+j+.5-y,rad=Math.hypot(dx,dy)/radius;
-   if(rad>=1)continue;
-   // Campana molto morbida: nessun bordo quadrato o cerchio netto.
-   const softness=(1-rad*rad)**2;
-   const alpha=amount*softness;
-   const at=(j*w+i)*4;
-   for(let ch=0;ch<3;ch++)data[at+ch]=Math.round(data[at+ch]*(1-alpha)+smudgeRGB[ch]*alpha);
-  }
-  ctx.putImageData(pixels,left,top);
-  // La grafite trasportata si esaurisce su una zona bianca.
-  smudgeLoad*=1-(.025+strength*.008);
+  ctx.putImageData(out,left,top);
  }
 }
 function stroke(a,b,e){
@@ -141,7 +133,7 @@ function stroke(a,b,e){
  }
  ctx.globalAlpha=1;
 }
-c.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;e.preventDefault();snapshot();drawing=true;last=point(e);if(tool==='smudge'){smudgeLoad=0;smudgeRGB=[38,38,38]}c.setPointerCapture(e.pointerId);stroke(last,last,e)});
+c.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;e.preventDefault();snapshot();drawing=true;last=point(e);c.setPointerCapture(e.pointerId);stroke(last,last,e)});
 c.addEventListener('pointermove',e=>{if(!drawing)return;e.preventDefault();const p=point(e);stroke(last,p,e);last=p});
 function stop(){drawing=false;last=null}c.addEventListener('pointerup',stop);c.addEventListener('pointercancel',stop);c.addEventListener('lostpointercapture',stop);
 document.getElementById('undo').addEventListener('click',()=>{if(!history.length){status.textContent='Non ci sono tratti da annullare.';return}ctx.putImageData(history.pop(),0,0);status.textContent='Ultima azione annullata.'});
