@@ -1,0 +1,6 @@
+MISSIONE PUCCINI v21 — LABORATORI ILLUSTRATI
+
+Sono state aggiunte le immagini delle materie alle testate di Italiano, Storia e Geografia, Matematica, Scienze, Tecnologia, Musica, Francese e Scienze motorie.
+I file index.html di Arte e Immagine e Mission English sono IDENTICI a quelli della v20 (congelati). Le illustrazioni dei due laboratori sono presenti come risorse, ma non sono state inserite nelle pagine.
+La pagina iniziale e tutti i quiz, le domande e le logiche dei laboratori sono invariati.
+Per pubblicare su GitHub Pages: caricare tutti i file estratti nella radice del repository.
