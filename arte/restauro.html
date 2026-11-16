@@ -1,0 +1,179 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Piccoli restauratori · Missione Puccini</title>
+<style>
+*{box-sizing:border-box}body{margin:0;color:#102d4f;font-family:system-ui,Arial,sans-serif;background:#e4d0aa;background-image:radial-gradient(#9e6d3c24 1px,transparent 1px),linear-gradient(115deg,#cba87b,#f9e8c5 27%,#ead2a9 80%,#c59d6c);background-size:14px 14px,100% 100%}
+button{font:inherit}header{max-width:1680px;margin:auto;display:grid;grid-template-columns:310px 1fr 170px;align-items:center;gap:14px;padding:12px 20px 6px;min-height:124px}
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:95px;height:95px;object-fit:contain;filter:drop-shadow(0 4px 4px #4428)}
+.brand div{font-weight:850;font-size:14px;line-height:1.3;color:#133d68;white-space:nowrap}
+.headline{text-align:center}.headline small{display:block;font-weight:850;color:#f8edcf;background:#144a80;border-radius:60px;padding:4px 24px;max-width:400px;margin:auto;font-size:clamp(15px,1.7vw,25px)}
+.headline h1{margin:2px 0 0;color:#b22529;font-family:Georgia,serif;font-size:clamp(29px,4vw,60px);text-shadow:1px 2px #fff7e5;line-height:1.05}
+.headline p{font-size:clamp(14px,1.5vw,21px);font-weight:850;margin:4px 0}
+.back{justify-self:end;background:#174c82;color:white;text-decoration:none;padding:12px;border-radius:12px;font-weight:750;font-size:13px}
+main{max-width:1680px;margin:auto;padding:0 18px 22px}
+.stage{display:grid;grid-template-columns:280px minmax(0,1fr);gap:12px;align-items:stretch}
+.guide{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:550px;padding-top:100px}
+.guide img{width:100%;max-height:525px;object-fit:contain;object-position:bottom;filter:drop-shadow(3px 8px 7px #493a3055)}
+.guide p{position:absolute;top:4px;left:15px;right:4px;margin:0;background:#fff7df;border:3px solid #c5944c;padding:13px 12px;border-radius:23px;text-align:center;font-weight:850;font-size:clamp(13px,1.25vw,18px);line-height:1.28;box-shadow:0 5px 13px #3423;z-index:2}.guide p::after{content:"";position:absolute;bottom:-19px;left:42%;width:24px;height:24px;background:#fff7df;border-right:3px solid #c5944c;border-bottom:3px solid #c5944c;transform:rotate(45deg)}
+.artarea{min-width:0;background:#e9cda1;border:9px ridge #b6813f;border-radius:12px;box-shadow:0 9px 21px #3a251e70;position:relative;padding:8px}
+.frame{position:relative;isolation:isolate;touch-action:none;overflow:visible;background:#473628}
+.frame canvas{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+.frame .tip{position:absolute;display:none;pointer-events:none;z-index:10;width:clamp(170px,24vw,370px);max-width:none;transform:translate(-23%,-6%);filter:drop-shadow(1px 5px 6px #0007);user-select:none}
+.overlay{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:12px;align-items:center;justify-content:center;pointer-events:none}
+.progress{background:#fff2d6f2;border:2px solid #b9894c;border-radius:14px;padding:8px 12px;min-width:225px;max-width:360px;flex:1;font-weight:850;box-shadow:0 2px 8px #3325}
+.progress-line{display:flex;justify-content:space-between;gap:10px}.track{height:14px;background:#d5c3a1;border-radius:20px;overflow:hidden;margin-top:5px}.track span{display:block;width:0%;height:100%;background:#4caf54}
+.btn{pointer-events:auto;background:#164e88;color:white;border:2px solid #fff;border-radius:13px;padding:12px 18px;font-weight:850;cursor:pointer;box-shadow:0 3px 9px #3027}
+.art-caption{margin:12px 4px 2px;padding:11px 16px;background:#fff7e8ed;border:1px solid #c99958;border-radius:10px;text-align:center;font-size:clamp(12px,1vw,15px);line-height:1.55;color:#46352a}.art-caption strong{font-family:Georgia,serif;font-size:1.15em;color:#6d2d2c}.art-caption a{color:#174c82;text-decoration:underline;text-underline-offset:2px}.quiz{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 0}
+.quiz-card{background:#fff2d8;border:2px solid #c99958;border-radius:15px;padding:13px;box-shadow:0 4px 9px #4225}
+.quiz-card h3{font-size:clamp(15px,1.25vw,19px);line-height:1.25;margin:0 0 8px;min-height:52px}
+.num{display:inline-grid;place-items:center;border-radius:50%;background:#a92531;color:#fff;width:29px;height:29px;margin-right:8px}
+.option{width:100%;display:block;text-align:left;background:white;border:2px solid #b8b1a6;border-radius:11px;padding:8px 11px;margin:5px 0;font-size:clamp(13px,1.1vw,16px);font-weight:700;color:#153455;cursor:pointer}
+.option.correct{border-color:#279e4a;background:#e6f9e8}.option.wrong{border-color:#c44747;background:#ffe4e4}
+.explain{font-size:13px;line-height:1.3;margin:8px 0 0}.hidden{display:none!important}
+.done{margin:12px auto;padding:14px;border-radius:12px;background:#e7f5e4;border:2px solid #2b9244;text-align:center;max-width:650px}.done p{margin:5px}
+.note{font-size:12px;text-align:center;margin:13px auto;color:#5b4430}
+@media(max-width:1000px){header{grid-template-columns:245px 1fr 120px}.brand img{width:70px;height:70px}.brand div{font-size:12px}.stage{grid-template-columns:190px 1fr}.guide{min-height:370px;padding-top:115px}.guide img{max-height:365px}.guide p{font-size:13px}.overlay{position:static;margin-top:10px}.artarea{padding:5px}}
+@media(max-width:650px){header{grid-template-columns:70px 1fr;gap:8px;padding:9px}.brand img{width:65px;height:65px}.brand div{display:none}.headline h1{font-size:29px}.back{grid-column:1/-1;justify-self:center}.stage{grid-template-columns:1fr}.guide{min-height:0;max-height:230px;justify-content:start;padding-top:0}.guide img{max-height:225px;width:145px}.guide p{position:relative;top:auto;left:auto;right:auto;margin:auto 0 auto 12px;max-width:235px;font-size:13px}.guide p::after{left:-16px;bottom:25px;transform:rotate(135deg);width:16px;height:16px}.artarea{border-width:5px}.quiz{grid-template-columns:1fr}.quiz-card h3{min-height:0}.overlay{flex-wrap:wrap}.progress{min-width:150px}.frame .tip{width:170px}}
+
+/* v11: leggibilità e disposizione del personaggio */
+body{font-size:18px;line-height:1.5}
+.brand div{font-size:18px;line-height:1.35}
+.headline small{font-size:clamp(19px,2vw,29px)}
+.headline p{font-size:clamp(20px,1.9vw,27px)}
+.back{font-size:17px;padding:13px 18px}
+.stage{grid-template-columns:260px minmax(0,1fr)}
+.guide{min-height:610px;padding-top:0;align-items:flex-end;justify-content:center}
+.guide img{width:100%;max-height:570px;object-position:bottom}
+.guide p{top:auto;bottom:355px;left:2px;right:3px;font-size:clamp(18px,1.45vw,23px);line-height:1.35;padding:16px 12px}
+.guide p::after{left:65%;bottom:-18px}
+.progress{font-size:20px;min-width:250px}
+.btn{font-size:19px}
+.art-caption{font-size:18px;line-height:1.5}
+.quiz-card h3{font-size:clamp(20px,1.65vw,25px);line-height:1.35;min-height:78px}
+.option{font-size:clamp(18px,1.35vw,22px);padding:11px 13px;line-height:1.35}
+.explain{font-size:18px;line-height:1.45}
+.note{font-size:16px;line-height:1.5}
+.done{font-size:20px}
+@media(max-width:1100px){.stage{grid-template-columns:215px minmax(0,1fr)}.guide{min-height:470px}.guide img{max-height:450px}.guide p{bottom:290px;font-size:18px}.brand div{font-size:15px}}
+@media(max-width:650px){body{font-size:17px}.stage{grid-template-columns:1fr}.guide{min-height:0;max-height:250px;justify-content:flex-start}.guide img{height:235px;width:145px}.guide p{position:relative;top:auto;bottom:auto;left:auto;right:auto;margin:auto 0 auto 8px;max-width:245px;font-size:17px}.guide p::after{left:-15px;bottom:25px}.headline p{font-size:18px}.art-caption{font-size:16px}.quiz-card h3{min-height:0}.option{font-size:19px}.note{font-size:15px}.brand div{display:none}}
+
+/* ACCESSIBILITÀ V12: leggibilità per tutti i laboratori, BES e DSA */
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:Arial,system-ui,sans-serif;line-height:1.55}
+button,a{touch-action:manipulation}
+button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.brand div{font-size:17px;line-height:1.4}
+.headline small{font-size:clamp(19px,1.8vw,27px)}
+.headline p{font-size:clamp(20px,1.8vw,26px);line-height:1.4}
+.back{font-size:17px;line-height:1.4}
+.guide p,.bubble{font-size:clamp(17px,1.4vw,22px);line-height:1.45}
+.progress{font-size:19px}
+.btn{font-size:19px;min-height:52px;line-height:1.35}
+.quiz-card h3{font-size:clamp(20px,1.6vw,25px);line-height:1.45;min-height:0}
+.option{font-size:clamp(18px,1.35vw,22px);line-height:1.45;min-height:50px;padding:11px 14px}
+.explain{font-size:18px;line-height:1.5}
+.note{font-size:16px;line-height:1.6}
+.done{font-size:20px;line-height:1.5}
+@media(max-width:1000px){.quiz{grid-template-columns:1fr}.quiz-card h3{font-size:22px}.option{font-size:20px}}
+@media(max-width:650px){.brand div{font-size:14px}.back{font-size:16px}.quiz-card{padding:16px}.note{font-size:15px}}
+/* v13: fumetto vicino al viso del bambino, senza alterare la grafica */
+@media(min-width:651px){
+ .guide p{top:auto!important;bottom:clamp(320px,39vw,490px)!important;left:2px;right:3px;z-index:3}
+ .guide p::after{left:48%}
+}
+
+/* Missione Puccini v14 - controllo accessibile della grandezza del testo */
+#mp-text-controls{position:fixed;right:14px;bottom:14px;z-index:99999;display:flex;align-items:center;gap:6px;padding:8px;background:#fffdf5;border:2px solid #174d80;border-radius:16px;box-shadow:0 4px 18px #0005;color:#102f52;font-family:Arial,sans-serif;line-height:1.2}
+#mp-text-controls button{appearance:none;border:2px solid #174d80;background:#174d80;color:white;border-radius:9px;min-width:48px;min-height:46px;padding:6px 9px;font:bold 20px Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+#mp-text-controls button:focus-visible{outline:3px solid #f9b83d;outline-offset:2px}
+#mp-text-controls button:disabled{opacity:.42;cursor:default}
+#mp-text-controls .mp-reset{background:#fff;color:#174d80;font-size:16px;min-width:58px}
+#mp-text-controls .mp-level{font:bold 16px Arial,sans-serif;min-width:45px;text-align:center}
+@media(max-width:480px){#mp-text-controls{right:7px;bottom:7px;padding:5px;gap:4px}#mp-text-controls button{min-width:42px;min-height:42px;font-size:18px}#mp-text-controls .mp-level{font-size:14px;min-width:38px}}
+/* v19: collegamento in una sola riga, senza cambiare il laboratorio */
+.back{white-space:nowrap!important;display:inline-flex!important;align-items:center;justify-content:center;min-width:max-content;font-size:clamp(15px,1.15vw,18px)!important;line-height:1.2!important}
+@media(min-width:1001px){header{grid-template-columns:310px minmax(0,1fr) 210px!important}}
+@media(min-width:651px) and (max-width:1000px){header{grid-template-columns:245px minmax(0,1fr) 190px!important}}
+</style></head><body>
+<header><div class="brand"><img src="../logo_istituto_trasparente.png" alt="Logo originale Istituto Comprensivo Armando Sforzi"><div>I.C. Armando Sforzi<br>Istituto Comprensivo</div></div>
+<div class="headline"><small>MISSIONE PUCCINI</small><h1>PICCOLI RESTAURATORI</h1><p>Laboratorio di Arte e Immagine</p></div>
+<a class="back" href="../index.html">← Tutti i laboratori</a></header>
+<main><div class="stage">
+<aside class="guide"><img src="piccolo_restauratore.png" alt="Piccolo restauratore con occhiali di ingrandimento e spugna Wishab"><p>Aiuta a far emergere i colori dell’affresco di Michelangelo!</p></aside>
+<section class="artarea"><div class="frame" id="frame"><canvas id="painting" width="960" height="641" aria-label="Pulitura simulata dell'affresco con Wishab"></canvas><img class="tip" id="tip" src="wishab_manica_v9.png" alt="" aria-hidden="true" draggable="false"></div>
+<div class="overlay"><div class="progress"><div class="progress-line"><span>Pulitura</span><span id="percent">0%</span></div><div class="track"><span id="bar"></span></div></div><button class="btn" id="reset" type="button">↻ Ricomincia il restauro</button></div></section></div>
+<div class="art-caption"><strong>La Creazione di Adamo</strong> — Michelangelo Buonarroti, circa 1511.<br>Affresco della volta della <strong>Cappella Sistina</strong>, Città del Vaticano.<br>Immagine: <a href="https://commons.wikimedia.org/wiki/File:Creation_of_Adam_Michelangelo.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · Opera in pubblico dominio, riproduzione utilizzabile per questo progetto didattico.</div><div class="quiz" id="questions"></div><div id="done" class="done hidden"><strong>🏅 Missione completata!</strong><p>Mostra la schermata al docente per ottenere il timbro sul Passaporto dell'Esploratore.</p><button class="btn" id="again" type="button">Ricomincia le domande</button></div>
+<p class="note"><span id="hint">Usa il dito, la penna LIM o il mouse.</span> · Simulazione didattica, non una tecnica reale di pulitura dell'affresco.<br>Prof. Marco Cigolotti · Realizzato con il supporto dell'IA · Nessun dato personale raccolto</p>
+</main><script>
+'use strict';
+// Banca di 15 domande. A ogni partita vengono estratte 3 domande e rimescolate le risposte.
+const questions=[
+{q:'Quale strumento usa spesso un restauratore per osservare i dettagli?',a:['Occhiali di ingrandimento','Binocolo','Cannocchiale'],correct:0,why:'Gli occhiali di ingrandimento permettono di osservare i particolari lasciando libere le mani.'},
+{q:'Che cosa significa conservare un’opera d’arte?',a:['Proteggerla dal tempo','Cambiarne sempre i colori','Ridipingerla totalmente'],correct:0,why:'Conservare significa proteggere e rispettare l’opera nel tempo.'},
+{q:'Quali sono i colori primari?',a:['Rosso, giallo e blu','Verde, arancione e viola','Bianco, nero e grigio'],correct:0,why:'Nel modello tradizionale RYB i colori primari sono rosso, giallo e blu.'},
+{q:'Chi ha dipinto La Creazione di Adamo?',a:['Michelangelo Buonarroti','Leonardo da Vinci','Raffaello Sanzio'],correct:0,why:'Michelangelo realizzò questo affresco sulla volta della Cappella Sistina.'},
+{q:'Dove si trova La Creazione di Adamo?',a:['Nella Cappella Sistina','Nel Colosseo','Nella Torre di Pisa'],correct:0,why:'L’affresco si trova sulla volta della Cappella Sistina, in Vaticano.'},
+{q:'Che cos’è un affresco?',a:['Una pittura eseguita su intonaco ancora umido','Un disegno su un foglio di carta','Una scultura in marmo'],correct:0,why:'Nell’affresco i pigmenti vengono applicati sull’intonaco fresco.'},
+{q:'Quale parte del corpo è protagonista nella scena centrale della Creazione di Adamo?',a:['Le mani','I piedi','Le orecchie'],correct:0,why:'Le mani quasi a contatto sono il particolare più celebre dell’opera.'},
+{q:'Prima di pulire un’opera d’arte, che cosa deve fare un restauratore?',a:['Studiare e controllare la superficie','Strofinare subito con forza','Aggiungere nuovi colori'],correct:0,why:'Prima di intervenire bisogna conoscere i materiali e valutare lo stato di conservazione.'},
+{q:'Quale comportamento è corretto davanti a un affresco antico?',a:['Osservarlo senza toccarlo','Grattarlo per vedere i colori','Bagnarlo con una spugna'],correct:0,why:'Le superfici antiche sono delicate: non vanno toccate senza competenze e autorizzazioni.'},
+{q:'A che cosa serve una fotografia prima di un restauro?',a:['A documentare lo stato dell’opera','A cambiare il soggetto del dipinto','A coprire le parti rovinate'],correct:0,why:'Le fotografie documentano le condizioni dell’opera prima dell’intervento.'},
+{q:'Che cosa può danneggiare un dipinto murale nel tempo?',a:['L’umidità','La luce di una torcia spenta','La lettura di un libro'],correct:0,why:'L’umidità può favorire alterazioni e distacchi delle superfici dipinte.'},
+{q:'Che cosa fa un restauratore quando trova una parte fragile?',a:['La esamina e sceglie un intervento adatto','La stacca subito con le mani','La copre con vernice qualsiasi'],correct:0,why:'Ogni intervento richiede valutazione e materiali appropriati.'},
+{q:'Quale strumento può aiutare a vedere un particolare molto piccolo?',a:['Un microscopio','Un telescopio astronomico','Una bussola'],correct:0,why:'Il microscopio permette di osservare particolari non visibili a occhio nudo.'},
+{q:'Che cosa rappresenta la scena della Creazione di Adamo?',a:['Dio che tende la mano verso Adamo','Un torneo tra cavalieri','Una battaglia navale'],correct:0,why:'La scena raffigura Dio che si avvicina ad Adamo tendendo la mano.'},
+{q:'Perché si conserva un’opera d’arte?',a:['Per tramandarla alle generazioni future','Per cancellarne la storia','Per trasformarla in un’opera nuova'],correct:0,why:'Conservare il patrimonio significa permettere anche a chi verrà dopo di conoscerlo.'}
+];
+const holder=document.getElementById('questions');let completed=0;
+function shuffle(items){const out=[...items];for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
+function buildQuiz(){
+ completed=0;holder.replaceChildren();document.getElementById('done').classList.add('hidden');
+ const selected=shuffle(questions).slice(0,3);
+ selected.forEach((q,i)=>{
+  const box=document.createElement('div');box.className='quiz-card';
+  const title=document.createElement('h3');title.innerHTML='<span class="num">'+(i+1)+'</span>';title.append(document.createTextNode(q.q));box.append(title);
+  const explanation=document.createElement('p');explanation.className='explain hidden';
+  const options=shuffle(q.a.map((answer,idx)=>({answer,correct:idx===q.correct})));
+  options.forEach(option=>{
+   const btn=document.createElement('button');btn.type='button';btn.className='option';btn.textContent=option.answer;
+   btn.onclick=()=>{
+    if(box.dataset.answered)return;box.dataset.answered='yes';
+    box.querySelectorAll('button').forEach(b=>{b.disabled=true;const found=options.find(o=>o.answer===b.textContent);if(found?.correct)b.classList.add('correct');if(b===btn&&!option.correct)b.classList.add('wrong')});
+    explanation.textContent=(option.correct?'✓ Esatto! ':'La risposta corretta è: '+q.a[q.correct]+'. ')+q.why;
+    explanation.classList.remove('hidden');completed++;
+    if(completed===selected.length)document.getElementById('done').classList.remove('hidden');
+   };box.append(btn);
+  });box.append(explanation);holder.append(box);
+ });
+}
+document.getElementById('again').onclick=buildQuiz;buildQuiz();
+const canvas=document.getElementById('painting'),ctx=canvas.getContext('2d',{willReadFrequently:true}),W=canvas.width,H=canvas.height,frame=document.getElementById('frame'),tip=document.getElementById('tip');const under=document.createElement('canvas'),dirt=document.createElement('canvas');under.width=dirt.width=W;under.height=dirt.height=H;const uc=under.getContext('2d'),dc=dirt.getContext('2d',{willReadFrequently:true});let loaded=false,drag=false,previous=null,strokes=0;function render(){ctx.clearRect(0,0,W,H);ctx.drawImage(under,0,0);ctx.drawImage(dirt,0,0)}function seedPatina(){dc.globalCompositeOperation='source-over';dc.clearRect(0,0,W,H);const g=dc.createLinearGradient(0,0,W,H);g.addColorStop(0,'rgba(35,30,24,.62)');g.addColorStop(.55,'rgba(65,54,41,.67)');g.addColorStop(1,'rgba(35,30,26,.60)');dc.fillStyle=g;dc.fillRect(0,0,W,H);let seed=17;function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}for(let i=0;i<2200;i++){const x=rand()*W,y=rand()*H,r=3+rand()*45;dc.beginPath();dc.arc(x,y,r,0,Math.PI*2);dc.fillStyle=rand()>.5?'rgba(205,177,125,.038)':'rgba(0,0,0,.075)';dc.fill()}strokes=0;render();updateProgress()}function updateProgress(){const data=dc.getImageData(0,0,W,H).data;let remaining=0;for(let i=3;i<data.length;i+=64)remaining+=data[i]/255;const count=data.length/64;const pct=Math.min(100,Math.max(0,Math.round(100*(1-remaining/count))));document.getElementById('percent').textContent=pct+'%';document.getElementById('bar').style.width=pct+'%';if(pct>=75)document.getElementById('hint').textContent='Ottimo lavoro! Ora puoi completare le domande.'}const img=new Image();img.onload=()=>{uc.drawImage(img,0,0,W,H);loaded=true;seedPatina()};img.onerror=()=>{document.getElementById('hint').textContent='Immagine mancante: controlla creazione_di_adamo.jpg';};img.src='creazione_di_adamo.jpg';function position(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height,left:e.clientX-r.left,top:e.clientY-r.top}}function moveTip(e){const p=position(e);tip.style.left=p.left+'px';tip.style.top=p.top+'px';tip.style.display='block'}function rub(e){if(!drag||!loaded)return;if(e.cancelable)e.preventDefault();moveTip(e);const p=position(e);dc.save();dc.globalCompositeOperation='destination-out';dc.lineCap='round';dc.lineJoin='round';dc.lineWidth=52;dc.strokeStyle='rgba(0,0,0,.24)';dc.fillStyle='rgba(0,0,0,.24)';dc.beginPath();if(previous){dc.moveTo(previous.x,previous.y);dc.lineTo(p.x,p.y)}else{dc.moveTo(p.x,p.y);dc.lineTo(p.x+.1,p.y+.1)}dc.stroke();dc.beginPath();dc.arc(p.x,p.y,26,0,Math.PI*2);dc.fill();dc.restore();previous=p;render();strokes++;if(strokes%6===0)updateProgress()}canvas.addEventListener('pointerdown',e=>{if(!loaded)return;drag=true;previous=null;canvas.setPointerCapture(e.pointerId);rub(e)});canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')moveTip(e);rub(e)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>canvas.addEventListener(ev,()=>{drag=false;previous=null;updateProgress()}));canvas.addEventListener('pointerleave',()=>{if(!drag)tip.style.display='none'});document.getElementById('reset').onclick=()=>{if(loaded){seedPatina();document.getElementById('hint').textContent='Usa il dito, la penna LIM o il mouse.'}};
+</script><script>
+/* Controllo del testo in ogni pagina. La preferenza resta sul dispositivo. */
+(function(){
+'use strict';
+var key='missione-puccini-text-scale';
+var scale=1;
+try{var saved=Number(localStorage.getItem(key));if(saved>=1&&saved<=1.6)scale=saved;}catch(e){}
+var selectors='h1,h2,h3,h4,p,small,button,a,label,legend,li,dt,dd,summary,blockquote,figcaption,.eyebrow,.lead,.feedback,.note,.muted,.tile strong,.tile small,.tile .go,.school small,.counter,.guide-label,.brand div,.progress,.bubble,.option,.choice,.explain,.quiz-card .num,.headline small,.headline p,.intro,.foot';
+var originals=new WeakMap();
+var bar=document.createElement('div');bar.id='mp-text-controls';bar.setAttribute('role','group');bar.setAttribute('aria-label','Dimensione del testo');
+bar.innerHTML='<button type="button" id="mp-smaller" aria-label="Riduci il testo">A−</button><span id="mp-text-level" class="mp-level" aria-live="polite">100%</span><button type="button" id="mp-bigger" aria-label="Ingrandisci il testo">A+</button><button type="button" class="mp-reset" id="mp-normal" aria-label="Ripristina dimensione normale">100%</button>';
+function elements(){return Array.from(document.querySelectorAll(selectors)).filter(function(el){return !bar.contains(el)&&!el.closest('#mp-text-controls')});}
+function baseline(el){var v=originals.get(el);if(v===undefined){v=parseFloat(getComputedStyle(el).fontSize);if(!Number.isFinite(v))v=18;originals.set(el,v);}return v;}
+function apply(){
+  elements().forEach(function(el){el.style.fontSize=(baseline(el)*scale).toFixed(2)+'px';});
+  document.getElementById('mp-text-level').textContent=Math.round(scale*100)+'%';
+  document.getElementById('mp-smaller').disabled=scale<=1.001;
+  document.getElementById('mp-bigger').disabled=scale>=1.599;
+  try{localStorage.setItem(key,String(scale));}catch(e){}
+}
+function set(next){scale=Math.max(1,Math.min(1.6,Math.round(next*10)/10));apply();}
+bar.querySelector('#mp-smaller').addEventListener('click',function(){set(scale-.1)});
+bar.querySelector('#mp-bigger').addEventListener('click',function(){set(scale+.1)});
+bar.querySelector('#mp-normal').addEventListener('click',function(){set(1)});
+function init(){document.body.appendChild(bar);apply();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script></body></html>
