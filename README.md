@@ -56,3 +56,12 @@ Arte congelata: unica modifica testuale «Quali sono i colori primari?». Missio
 ## Versione 18
 - Arte: soltanto posizione fumetto sopra la testa del restauratore; restauro e domande invariati.
 - Inglese: 15 icone illustrate originali (immagini generate con IA), 3 prove per partita, rotazione senza ripetere le parole finché tutte e 15 sono state proposte. Risposte casuali, pronuncia inglese e testo regolabile.
+
+
+## v19
+- Arte: solo pulsante «← Tutti i laboratori» su una riga, senza alterare gioco, grafica o domande.
+- Inglese: tutte e 15 le icone illustrate incorporate direttamente nel file inglese/index.html; nessuna dipendenza dai percorsi immagini. Rimangono voce e rotazione delle domande.
+
+
+## Versione 20 – Home illustrata
+Solo la pagina iniziale aggiornata con 10 icone illustrate e il logo originale. Nessun laboratorio modificato.
