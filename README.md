@@ -18,3 +18,6 @@ Crediti: Prof. Marco Cigolotti · Realizzato con il supporto dell’IA.
 
 ## Aggiornamento v8 — solo Arte
 La pagina iniziale approvata resta invariata. Nel laboratorio Arte: logo originale trasparente, mascotte senza rettangolo, patina semitrasparente e Wishab con braccio mobile.
+
+
+v9: solo pagina Arte riprogettata con layout ispirato al riferimento, Wishab con manica. Home invariata.
