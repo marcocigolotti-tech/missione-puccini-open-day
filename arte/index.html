@@ -1,61 +1,71 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#9856b8"><title>Arte e Immagine | Missione Puccini</title><style>:root{--accent:#9856b8}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#dff5ff,#fff6e4);color:#19334a;min-height:100vh}header{background:var(--accent);color:white;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}header a{color:white;font-weight:700}main{max-width:980px;margin:auto;padding:20px}.hero{background:white;border-radius:26px;box-shadow:0 12px 35px #1b3d5720;padding:24px;margin:15px 0}.hero h1{font-size:clamp(29px,5vw,51px);margin:8px 0}.eyebrow{font-weight:800;color:var(--accent);letter-spacing:.07em;text-transform:uppercase}.icon{font-size:56px}.lead{font-size:20px;line-height:1.45}.card{background:white;border-radius:24px;padding:25px;box-shadow:0 8px 24px #1b3d5718}h2{font-size:clamp(23px,3.6vw,34px)}.choices{display:grid;gap:12px;margin:22px 0}button,.action{border:0;border-radius:16px;padding:16px 20px;font:700 20px system-ui;cursor:pointer;min-height:60px;touch-action:manipulation}button.choice{background:#edf3fa;color:#19334a;text-align:left;border:3px solid transparent}button.choice:hover,button.choice:focus{border-color:var(--accent)}button.choice.correct{background:#d8f7e5;border-color:#238450}button.choice.wrong{background:#ffe4e2;border-color:#c34b46}button:disabled{cursor:default;opacity:.9}.action{background:var(--accent);color:white}.action:focus-visible,button:focus-visible{outline:4px solid #161616;outline-offset:3px}.feedback{background:#f1f7ff;border-left:6px solid var(--accent);padding:16px;border-radius:12px;font-size:19px;margin-bottom:18px}.progress{height:12px;background:#e4edf4;border-radius:99px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:var(--accent);transition:width .25s}.muted{color:#52667a}.complete{text-align:center}.stamp{font-size:82px}.note{font-size:15px;margin-top:18px}.hidden{display:none!important}.artcanvas{border:4px solid #c9a275;border-radius:16px;max-width:100%;touch-action:none;display:block;margin:12px auto;background:#d1b58c}.artstage{position:relative;width:min(100%,600px);margin:12px auto}.artstage .artcanvas{width:100%;height:auto;margin:0}.artstage #reveal{cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none}.artbox{text-align:center;background:#fff8ec;padding:12px;border-radius:16px;margin:15px 0}@media(min-width:720px){.choices{grid-template-columns:repeat(3,1fr)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style></head><body><header><strong>🧭 MISSIONE PUCCINI</strong><a href="../index.html">Tutte le materie</a></header><main><section class="hero"><div class="icon" aria-hidden="true">🎨</div><div class="eyebrow">Open Day · 12 dicembre 2026</div><h1>Arte e Immagine</h1><p class="lead">Piccoli restauratori — Tocca le risposte sulla LIM o sul tablet. Non servono dati personali.</p></section><section class="card" id="intro"><h2>Pronto a esplorare?</h2><p>Tre sfide brevi, spiegazioni dopo ogni risposta e un timbro finale sul tuo passaporto.</p><div id="art-area" class="artbox"><strong>Prima prova: scopri il dipinto nascosto!</strong><p>Passa il dito o il mouse sulla patina per rivelare i colori.</p><div class="artstage"><canvas class="artcanvas" id="reveal" width="600" height="280" aria-label="Dipinto da scoprire: trascina il dito o il mouse sulla patina"></canvas></div><p id="art-progress" class="muted" role="status">Passa il dito o il mouse sulla patina marrone.</p><button class="action" type="button" onclick="resetArt()">Ricomincia il restauro</button> <button class="action" type="button" onclick="revealAll()">Scopri tutto il dipinto</button><button class="action" onclick="start()">Prosegui con le domande</button></div></section><section class="card hidden" id="quiz" aria-live="polite"><div id="count" class="muted"></div><div class="progress" aria-hidden="true"><div id="bar"></div></div><h2 id="question"></h2><div id="answers" class="choices"></div><div id="feedback" class="feedback hidden" role="status"></div><button id="next" class="action hidden" onclick="next()">Continua →</button></section><section class="card complete hidden" id="end"><div class="stamp">🏅</div><h2>Missione completata!</h2><p class="lead">Hai esplorato il laboratorio di <strong>Arte e Immagine</strong>.</p><p>Mostra questa schermata al tutor e chiedi il timbro sul Passaporto dell’Esploratore.</p><button class="action" onclick="restart()">Ricomincia</button></section><p class="note muted">Progetto didattico per l’Open Day della Scuola Media G. Puccini · Prof. Marco Cigolotti · Realizzato con il supporto dell’IA. Nessun dato personale viene richiesto o salvato.</p></main><script>const DATA=[["Quale strumento usa spesso un restauratore per osservare dettagli?", ["Lente di ingrandimento", "Martello pneumatico", "Forbici da cucina"], 0, "La lente aiuta a vedere piccoli particolari."], ["Che cosa significa «conservare» un’opera?", ["Proteggerla nel tempo", "Cambiarne sempre i colori", "Gettarla via"], 0, "La conservazione tutela l’opera."], ["Quali sono i colori primari della pittura tradizionale scolastica?", ["Rosso, giallo, blu", "Verde, viola, arancio", "Bianco, nero, grigio"], 0, "Rosso, giallo e blu sono i primari del modello RYB."]];const questions=DATA;let step=0, answered=false;const $=s=>document.querySelector(s);function start(){step=0;$('#intro').classList.add('hidden');$('#end').classList.add('hidden');$('#quiz').classList.remove('hidden');render()}function render(){answered=false;const q=questions[step];$('#count').textContent=`Missione ${step+1} di ${questions.length}`;$('#bar').style.width=`${step/questions.length*100}%`;$('#question').textContent=q[0];$('#answers').innerHTML='';$('#feedback').classList.add('hidden');$('#next').classList.add('hidden');q[1].forEach((opt,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=opt;b.addEventListener('click',()=>choose(i));$('#answers').appendChild(b)})}function choose(i){if(answered)return;answered=true;const q=questions[step];const ok=i===q[2];document.querySelectorAll('.choice').forEach((b,j)=>{b.disabled=true;if(j===q[2])b.classList.add('correct');if(j===i&&!ok)b.classList.add('wrong')});$('#feedback').textContent=(ok?'✓ Ottimo! ':'La risposta giusta è: '+q[1][q[2]]+'. ')+q[3];$('#feedback').classList.remove('hidden');$('#next').classList.remove('hidden')}function next(){step++;if(step===questions.length){$('#quiz').classList.add('hidden');$('#end').classList.remove('hidden');$('#bar').style.width='100%'}else render()}function restart(){ $('#end').classList.add('hidden');$('#intro').classList.remove('hidden')}let artCanvas,artCtx,artBackground,artOriginalCanvas,artIsDrawing=false,artLast=null,artRevealed=0;
-function paintHiddenScene(ctx){
-  ctx.fillStyle='#a6d7f4';ctx.fillRect(0,0,600,280);
-  ctx.fillStyle='#f5cf60';ctx.beginPath();ctx.arc(472,65,37,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='#76b979';ctx.fillRect(0,157,600,123);
-  ctx.fillStyle='#568b56';for(let i=0;i<9;i++){ctx.beginPath();ctx.arc(i*82,166,48,Math.PI,0);ctx.fill()}
-  ctx.fillStyle='#b86644';ctx.fillRect(219,127,158,153);
-  ctx.fillStyle='#f3dfb8';ctx.beginPath();ctx.moveTo(198,130);ctx.lineTo(299,50);ctx.lineTo(400,130);ctx.closePath();ctx.fill();
-  ctx.fillStyle='#5b3e39';ctx.fillRect(281,205,35,75);ctx.fillRect(247,161,31,37);ctx.fillRect(326,161,31,37);
-  ctx.fillStyle='#fff5cc';ctx.font='bold 23px system-ui';ctx.fillText('IL DIPINTO RITROVATO!',24,35);
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#9856b8"><title>Arte e Immagine | Missione Puccini</title><style>:root{--accent:#9856b8}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#dff5ff,#fff6e4);color:#19334a;min-height:100vh}header{background:var(--accent);color:white;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}header a{color:white;font-weight:700}main{max-width:980px;margin:auto;padding:20px}.hero{background:white;border-radius:26px;box-shadow:0 12px 35px #1b3d5720;padding:24px;margin:15px 0}.hero h1{font-size:clamp(29px,5vw,51px);margin:8px 0}.eyebrow{font-weight:800;color:var(--accent);letter-spacing:.07em;text-transform:uppercase}.icon{font-size:56px}.lead{font-size:20px;line-height:1.45}.card{background:white;border-radius:24px;padding:25px;box-shadow:0 8px 24px #1b3d5718}h2{font-size:clamp(23px,3.6vw,34px)}.choices{display:grid;gap:12px;margin:22px 0}button,.action{border:0;border-radius:16px;padding:16px 20px;font:700 20px system-ui;cursor:pointer;min-height:60px;touch-action:manipulation}button.choice{background:#edf3fa;color:#19334a;text-align:left;border:3px solid transparent}button.choice:hover,button.choice:focus{border-color:var(--accent)}button.choice.correct{background:#d8f7e5;border-color:#238450}button.choice.wrong{background:#ffe4e2;border-color:#c34b46}button:disabled{cursor:default;opacity:.9}.action{background:var(--accent);color:white}.action:focus-visible,button:focus-visible{outline:4px solid #161616;outline-offset:3px}.feedback{background:#f1f7ff;border-left:6px solid var(--accent);padding:16px;border-radius:12px;font-size:19px;margin-bottom:18px}.progress{height:12px;background:#e4edf4;border-radius:99px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:var(--accent);transition:width .25s}.muted{color:#52667a}.complete{text-align:center}.stamp{font-size:82px}.note{font-size:15px;margin-top:18px}.hidden{display:none!important}.hero-images{display:flex;align-items:center;justify-content:space-between;gap:15px;float:right;max-width:42%;}.mascot{height:155px;max-width:45%;object-fit:contain;object-position:bottom}.schoollogo{width:120px;max-width:50%;height:120px;object-fit:contain;border-radius:50%;border:3px solid #ffd17e;background:#fff}.source-note{font-size:13px;color:#5d4b37;line-height:1.5}.artcanvas{border:4px solid #c9a275;border-radius:16px;max-width:100%;touch-action:none;display:block;margin:12px auto;background:#473d34}.artstage{position:relative;width:min(100%,920px);margin:12px auto}.artstage .artcanvas{width:100%;height:auto;margin:0}.artstage #reveal{cursor:none;touch-action:none;user-select:none;-webkit-user-select:none}#wishab-cursor{position:absolute;z-index:3;width:clamp(70px,12vw,115px);height:auto;pointer-events:none;display:none;transform:translate(-42%,-12%);filter:drop-shadow(3px 5px 4px #0006);user-select:none}.artbox{text-align:center;background:#fff8ec;padding:12px;border-radius:16px;margin:15px 0}@media(min-width:720px){.choices{grid-template-columns:repeat(3,1fr)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style></head><body><header><strong>🧭 MISSIONE PUCCINI</strong><a href="../index.html">Tutte le materie</a></header><main><section class="hero"><div class="hero-images"><img class="mascot" src="bambino_felpa_grigia.png" alt="Mascotte della scuola con felpa grigia"><img class="schoollogo" src="logo_istituto.jpg" alt="Logo Istituto Comprensivo Armando Sforzi"></div><div class="icon" aria-hidden="true">🎨</div><div class="eyebrow">Open Day · 12 dicembre 2026</div><h1>Arte e Immagine</h1><p class="lead">Piccoli restauratori — Tocca le risposte sulla LIM o sul tablet. Non servono dati personali.</p></section><section class="card" id="intro"><h2>Pronto a esplorare?</h2><p>Tre sfide brevi, spiegazioni dopo ogni risposta e un timbro finale sul tuo passaporto.</p><div id="art-area" class="artbox"><strong>Prima prova: scopri la Creazione di Adamo!</strong><p>Passa il dito o il mouse sulla patina scura: sotto si nasconde un vero affresco di Michelangelo.</p><div class="artstage"><canvas class="artcanvas" id="reveal" width="960" height="641" aria-label="Creazione di Adamo di Michelangelo: trascina la Wishab per simulare una pulitura"></canvas><img id="wishab-cursor" src="wishab.png" alt="" draggable="false" aria-hidden="true"></div><p class="source-note">Immagine: Michelangelo, <em>Creazione di Adamo</em>, Cappella Sistina (pubblico dominio). Simulazione didattica, non un intervento reale di restauro.</p><p id="art-progress" class="muted" role="status">Usa la Wishab virtuale: tieni premuto e strofina delicatamente.</p><button class="action" type="button" onclick="resetArt()">Ricomincia il restauro</button> <button class="action" type="button" onclick="revealAll()">Scopri tutto il dipinto</button><button class="action" onclick="start()">Prosegui con le domande</button></div></section><section class="card hidden" id="quiz" aria-live="polite"><div id="count" class="muted"></div><div class="progress" aria-hidden="true"><div id="bar"></div></div><h2 id="question"></h2><div id="answers" class="choices"></div><div id="feedback" class="feedback hidden" role="status"></div><button id="next" class="action hidden" onclick="next()">Continua →</button></section><section class="card complete hidden" id="end"><div class="stamp">🏅</div><h2>Missione completata!</h2><p class="lead">Hai esplorato il laboratorio di <strong>Arte e Immagine</strong>.</p><p>Mostra questa schermata al tutor e chiedi il timbro sul Passaporto dell’Esploratore.</p><button class="action" onclick="restart()">Ricomincia</button></section><p class="note muted">Progetto didattico per l’Open Day della Scuola Media G. Puccini · Prof. Marco Cigolotti · Realizzato con il supporto dell’IA. Nessun dato personale viene richiesto o salvato.</p></main><script>const DATA=[["Quale strumento usa spesso un restauratore per osservare dettagli?", ["Occhiali di ingrandimento", "Binocolo", "Cannocchiale"], 0, "Gli occhiali di ingrandimento permettono di osservare i dettagli mantenendo libere le mani."], ["Che cosa significa conservare un’opera d’arte?", ["Proteggerla nel tempo", "Cambiarne sempre i colori", "Ridipingerla totalmente"], 0, "La conservazione tutela l’opera."], ["Quali sono i colori primari della pittura tradizionale scolastica?", ["Rosso, giallo, blu", "Verde, viola, arancio", "Bianco, nero, grigio"], 0, "Rosso, giallo e blu sono i primari del modello RYB."]];const questions=DATA;let step=0, answered=false;const $=s=>document.querySelector(s);function start(){step=0;$('#intro').classList.add('hidden');$('#end').classList.add('hidden');$('#quiz').classList.remove('hidden');render()}function render(){answered=false;const q=questions[step];$('#count').textContent=`Missione ${step+1} di ${questions.length}`;$('#bar').style.width=`${step/questions.length*100}%`;$('#question').textContent=q[0];$('#answers').innerHTML='';$('#feedback').classList.add('hidden');$('#next').classList.add('hidden');q[1].forEach((opt,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=opt;b.addEventListener('click',()=>choose(i));$('#answers').appendChild(b)})}function choose(i){if(answered)return;answered=true;const q=questions[step];const ok=i===q[2];document.querySelectorAll('.choice').forEach((b,j)=>{b.disabled=true;if(j===q[2])b.classList.add('correct');if(j===i&&!ok)b.classList.add('wrong')});$('#feedback').textContent=(ok?'✓ Ottimo! ':'La risposta giusta è: '+q[1][q[2]]+'. ')+q[3];$('#feedback').classList.remove('hidden');$('#next').classList.remove('hidden')}function next(){step++;if(step===questions.length){$('#quiz').classList.add('hidden');$('#end').classList.remove('hidden');$('#bar').style.width='100%'}else render()}function restart(){ $('#end').classList.add('hidden');$('#intro').classList.remove('hidden')}let artCanvas, artCtx, artIsDrawing=false, artReady=false, lastPt=null;
+let baseCanvas, baseCtx, overlayCanvas, overlayCtx;
+const CW=960, CH=641;
+const cursor=document.getElementById('wishab-cursor');
+const status=document.getElementById('art-progress');
+let cleaned=0, totalPath=0;
+function repaint(){
+  if(!artReady)return;
+  overlayCtx.globalCompositeOperation='source-over';
+  overlayCtx.clearRect(0,0,CW,CH);
+  const gradient=overlayCtx.createLinearGradient(0,0,CW,CH);
+  gradient.addColorStop(0,'rgba(38,31,24,.94)');
+  gradient.addColorStop(.55,'rgba(55,48,39,.96)');
+  gradient.addColorStop(1,'rgba(31,28,24,.95)');
+  overlayCtx.fillStyle=gradient;overlayCtx.fillRect(0,0,CW,CH);
+  let seed=125;function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
+  for(let i=0;i<3500;i++){
+    const x=rnd()*CW,y=rnd()*CH,r=2+rnd()*36;
+    overlayCtx.beginPath();overlayCtx.arc(x,y,r,0,Math.PI*2);
+    overlayCtx.fillStyle=rnd()>.5?'rgba(191,165,126,.045)':'rgba(0,0,0,.06)';overlayCtx.fill();
+  }
+  cleaned=0;totalPath=0;renderArt();
+  status.textContent='Patina pronta. Trascina la Wishab sull’affresco per iniziare.';
 }
-function resetArt(){
-  artCanvas=document.getElementById('reveal');if(!artCanvas)return;
-  artCtx=artCanvas.getContext('2d');
-  artCtx.globalCompositeOperation='source-over';
-  artCtx.clearRect(0,0,600,280);
-  paintHiddenScene(artCtx);
-  artBackground=artCtx.getImageData(0,0,600,280);
-  artOriginalCanvas=document.createElement("canvas");artOriginalCanvas.width=600;artOriginalCanvas.height=280;artOriginalCanvas.getContext("2d").putImageData(artBackground,0,0);
-  artCtx.fillStyle='#775039';artCtx.fillRect(0,0,600,280);
-  artCtx.fillStyle='rgba(232,204,166,.25)';
-  for(let i=0;i<120;i++)artCtx.fillRect((i*79)%600,(i*43)%280,32,2);
-  artIsDrawing=false;artLast=null;artRevealed=0;
-  document.getElementById('art-progress').textContent='Tocca e trascina sulla superficie marrone per scoprire il dipinto.';
+function renderArt(){
+  artCtx.clearRect(0,0,CW,CH);
+  artCtx.drawImage(baseCanvas,0,0);
+  artCtx.drawImage(overlayCanvas,0,0);
 }
-function revealAll(){if(!artCtx||!artBackground)return;artCtx.putImageData(artBackground,0,0);document.getElementById('art-progress').textContent='Dipinto scoperto! Ora puoi proseguire con le domande.';}
+function resetArt(){repaint()}
+function revealAll(){if(!artReady)return;overlayCtx.clearRect(0,0,CW,CH);renderArt();status.textContent='Affresco completamente scoperto! Prosegui con le domande.'}
 function initArt(){
-  const c=document.getElementById('reveal');if(!c)return;
-  resetArt();
-  function point(e){const r=c.getBoundingClientRect();return {x:(e.clientX-r.left)*600/r.width,y:(e.clientY-r.top)*280/r.height}}
-  function uncover(e){
-    if(!artIsDrawing)return;
-    if(e.cancelable)e.preventDefault();
-    const pt=point(e);const r=35;
-    // Ripristina i pixel originali solo nell'area toccata: nessuna sovrapposizione di canvas.
-    const x=Math.max(0,Math.floor(pt.x-r-2)),y=Math.max(0,Math.floor(pt.y-r-2));
-    const w=Math.min(600-x,r*2+5),h=Math.min(280-y,r*2+5);
-    artCtx.save();artCtx.beginPath();
-    artCtx.moveTo(pt.x,pt.y);artCtx.arc(pt.x,pt.y,r,0,Math.PI*2);artCtx.clip();
-    artCtx.drawImage(artOriginalCanvas,0,0);
-    artCtx.restore();
-    // Il cerchio iniziale si scopre già al primo tocco.
-    artRevealed++;
-    document.getElementById('art-progress').textContent='Ottimo! La patina si sta togliendo. Continua a passare il dito!';
-  }
-  c.addEventListener('pointerdown',e=>{artIsDrawing=true;try{c.setPointerCapture(e.pointerId)}catch(_e){}uncover(e)});
-  c.addEventListener('pointermove',uncover);
-  c.addEventListener('pointerup',()=>{artIsDrawing=false});
-  c.addEventListener('pointercancel',()=>{artIsDrawing=false});
-  c.addEventListener('lostpointercapture',()=>{artIsDrawing=false});
-  // Compatibilità con dispositivi che non generano PointerEvent.
-  if(!window.PointerEvent){
-    c.addEventListener('mousedown',e=>{artIsDrawing=true;uncover(e)});
-    c.addEventListener('mousemove',uncover);
-    window.addEventListener('mouseup',()=>{artIsDrawing=false});
-    c.addEventListener('touchstart',e=>{artIsDrawing=true;uncover(e.touches[0])},{passive:false});
-    c.addEventListener('touchmove',e=>{e.preventDefault();uncover(e.touches[0])},{passive:false});
-    c.addEventListener('touchend',()=>{artIsDrawing=false});
-  }
+ artCanvas=document.getElementById('reveal');artCtx=artCanvas.getContext('2d');
+ artCtx.fillStyle='#40352b';artCtx.fillRect(0,0,CW,CH);
+ artCtx.fillStyle='white';artCtx.font='bold 28px system-ui';artCtx.textAlign='center';
+ artCtx.fillText('Preparazione dell’affresco…',CW/2,CH/2);
+ baseCanvas=document.createElement('canvas');baseCanvas.width=CW;baseCanvas.height=CH;baseCtx=baseCanvas.getContext('2d');
+ overlayCanvas=document.createElement('canvas');overlayCanvas.width=CW;overlayCanvas.height=CH;overlayCtx=overlayCanvas.getContext('2d');
+ const img=new Image();
+ img.onload=()=>{
+  const scale=Math.min(CW/img.width,CH/img.height),w=img.width*scale,h=img.height*scale;
+  baseCtx.fillStyle='#cbbca6';baseCtx.fillRect(0,0,CW,CH);
+  baseCtx.drawImage(img,(CW-w)/2,(CH-h)/2,w,h);
+  artReady=true;repaint();
+ };
+ img.onerror=()=>{status.textContent='Immagine locale mancante: controlla che creazione_di_adamo.jpg sia nella cartella arte.'};
+ img.src='creazione_di_adamo.jpg';
+ function point(e){const rect=artCanvas.getBoundingClientRect();return {x:(e.clientX-rect.left)*CW/rect.width,y:(e.clientY-rect.top)*CH/rect.height}}
+ function moveCursor(e){const rect=artCanvas.getBoundingClientRect(),parent=artCanvas.parentElement.getBoundingClientRect();cursor.style.left=(e.clientX-parent.left)+'px';cursor.style.top=(e.clientY-parent.top)+'px';cursor.style.display='block'}
+ function rub(e){
+  if(!artIsDrawing||!artReady)return;
+  if(e.cancelable)e.preventDefault();
+  moveCursor(e);
+  const p=point(e), radius=32;
+  overlayCtx.save();overlayCtx.globalCompositeOperation='destination-out';
+  overlayCtx.lineCap='round';overlayCtx.lineJoin='round';overlayCtx.lineWidth=radius*2;
+  overlayCtx.strokeStyle='rgba(0,0,0,.26)';overlayCtx.fillStyle='rgba(0,0,0,.26)';
+  overlayCtx.beginPath();
+  if(lastPt){overlayCtx.moveTo(lastPt.x,lastPt.y);overlayCtx.lineTo(p.x,p.y);totalPath+=Math.hypot(p.x-lastPt.x,p.y-lastPt.y)}
+  else{overlayCtx.moveTo(p.x,p.y);overlayCtx.lineTo(p.x+.1,p.y+.1)}
+  overlayCtx.stroke();overlayCtx.beginPath();overlayCtx.arc(p.x,p.y,radius,0,Math.PI*2);overlayCtx.fill();
+  overlayCtx.restore();lastPt=p;renderArt();
+  cleaned++;status.textContent='Pulitura in corso: passa più volte con delicatezza sulla stessa zona per scoprire i colori.';
+ }
+ artCanvas.addEventListener('pointerenter',moveCursor);
+ artCanvas.addEventListener('pointerdown',e=>{if(!artReady)return;artIsDrawing=true;lastPt=null;try{artCanvas.setPointerCapture(e.pointerId)}catch(_){}rub(e)});
+ artCanvas.addEventListener('pointermove',e=>{moveCursor(e);rub(e)});
+ for(const name of ['pointerup','pointercancel','lostpointercapture'])artCanvas.addEventListener(name,()=>{artIsDrawing=false;lastPt=null});
+ artCanvas.addEventListener('pointerleave',()=>{if(!artIsDrawing)cursor.style.display='none'});
 }
 initArt();</script></body></html>
