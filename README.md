@@ -14,3 +14,7 @@ Web app indipendenti per l’Open Day del 12 dicembre 2026, I.C. Armando Sforzi.
 Caricare i contenuti della cartella direttamente nella root del repository GitHub; attivare Settings > Pages > Deploy from branch > main > /(root).
 
 Crediti: Prof. Marco Cigolotti · Realizzato con il supporto dell’IA.
+
+
+## Aggiornamento v8 — solo Arte
+La pagina iniziale approvata resta invariata. Nel laboratorio Arte: logo originale trasparente, mascotte senza rettangolo, patina semitrasparente e Wishab con braccio mobile.
