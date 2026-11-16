@@ -42,3 +42,12 @@ Pulsanti fissi A− / A+ / 100%, dal 100% al 160%, passi del 10%. Preferenza sal
 
 
 v15 Arte: banca di 15 domande, 3 estratte casualmente a ogni caricamento o nuova partita; alternative mescolate in modo indipendente. Altre pagine invariate.
+
+
+## v16
+Arte congelata: unica modifica testuale «Quali sono i colori primari?». Mission English: 15 parole, 3 prove casuali, risposte casuali, sintesi vocale inglese (browser), riascolto normale/lento, nuova illustrazione di Londra incorporata. Audio TTS dipende dalle voci installate. Tutte le altre pagine invariate.
+
+
+## v17 — Personaggi
+- Arte congelata: sostituita esclusivamente la mascotte con il restauratore a figura intera.
+- Inglese: inserito gentleman con bombetta e ombrello nell’intestazione, mantenendo gioco e audio della v16.
