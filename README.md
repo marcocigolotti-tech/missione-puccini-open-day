@@ -21,3 +21,7 @@ La pagina iniziale approvata resta invariata. Nel laboratorio Arte: logo origina
 
 
 v9: solo pagina Arte riprogettata con layout ispirato al riferimento, Wishab con manica. Home invariata.
+
+
+## v10 — Arte e Immagine
+Mascotte laterale ingrandita con fumetto; didascalia dell’affresco con autore, collocazione, link a Wikimedia Commons e pubblico dominio; intestazione «Istituto Comprensivo» su un’unica riga. Home e altri laboratori invariati.
