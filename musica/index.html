@@ -1,122 +1,69 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#8b5bbd"><title>Musica | Missione Puccini</title><style>:root{--accent:#8b5bbd}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#dff5ff,#fff6e4);color:#19334a;min-height:100vh}header{background:var(--accent);color:white;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}header a{color:white;font-weight:700}main{max-width:980px;margin:auto;padding:20px}.hero{background:white;border-radius:26px;box-shadow:0 12px 35px #1b3d5720;padding:24px;margin:15px 0}.hero h1{font-size:clamp(29px,5vw,51px);margin:8px 0}.eyebrow{font-weight:800;color:var(--accent);letter-spacing:.07em;text-transform:uppercase}.icon{font-size:56px}.lead{font-size:20px;line-height:1.45}.card{background:white;border-radius:24px;padding:25px;box-shadow:0 8px 24px #1b3d5718}h2{font-size:clamp(23px,3.6vw,34px)}.choices{display:grid;gap:12px;margin:22px 0}button,.action{border:0;border-radius:16px;padding:16px 20px;font:700 20px system-ui;cursor:pointer;min-height:60px;touch-action:manipulation}button.choice{background:#edf3fa;color:#19334a;text-align:left;border:3px solid transparent}button.choice:hover,button.choice:focus{border-color:var(--accent)}button.choice.correct{background:#d8f7e5;border-color:#238450}button.choice.wrong{background:#ffe4e2;border-color:#c34b46}button:disabled{cursor:default;opacity:.9}.action{background:var(--accent);color:white}.action:focus-visible,button:focus-visible{outline:4px solid #161616;outline-offset:3px}.feedback{background:#f1f7ff;border-left:6px solid var(--accent);padding:16px;border-radius:12px;font-size:19px;margin-bottom:18px}.progress{height:12px;background:#e4edf4;border-radius:99px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:var(--accent);transition:width .25s}.muted{color:#52667a}.complete{text-align:center}.stamp{font-size:82px}.note{font-size:15px;margin-top:18px}.hidden{display:none!important}.artcanvas{border:4px solid #c9a275;border-radius:16px;max-width:100%;touch-action:none;display:block;margin:12px auto;background:#d1b58c}.artbox{text-align:center;background:#fff8ec;padding:12px;border-radius:16px;margin:15px 0}@media(min-width:720px){.choices{grid-template-columns:repeat(3,1fr)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-/* ACCESSIBILITÀ V12: leggibilità per tutti i laboratori, BES e DSA */
-html{font-size:18px;-webkit-text-size-adjust:100%}
-body{font-family:Arial,system-ui,sans-serif;line-height:1.55}
-button,a{touch-action:manipulation}
-button:focus-visible,a:focus-visible{outline:4px solid #102d4f;outline-offset:4px}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-
-header{font-size:20px;line-height:1.45;flex-wrap:wrap}
-header a{font-size:19px}
-main{max-width:1100px}
-.hero{padding:30px}
-.hero h1{line-height:1.2}
-.eyebrow{font-size:17px;line-height:1.5;letter-spacing:.03em}
-.lead{font-size:clamp(22px,2vw,26px);line-height:1.55}
-.card{font-size:21px;line-height:1.6;padding:30px}
-.card h2{font-size:clamp(27px,3vw,38px);line-height:1.35}
-#count{font-size:20px;font-weight:700}
-.choices{gap:16px}
-button,.action{font-family:Arial,system-ui,sans-serif;font-size:clamp(21px,2vw,25px);line-height:1.4;min-height:68px;padding:18px 22px}
-button.choice{text-align:left;border-width:3px}
-.feedback{font-size:21px;line-height:1.6;padding:20px}
-.note{font-size:17px;line-height:1.6}
-.muted{color:#3a4f62}
-@media(max-width:850px){.choices{grid-template-columns:1fr}}
-@media(max-width:520px){main{padding:12px}.hero,.card{padding:19px}.lead{font-size:21px}.card{font-size:19px}.note{font-size:16px}button,.action{font-size:20px}}
-
-/* Missione Puccini v14 - controllo accessibile della grandezza del testo */
-#mp-text-controls{position:fixed;right:14px;bottom:14px;z-index:99999;display:flex;align-items:center;gap:6px;padding:8px;background:#fffdf5;border:2px solid #174d80;border-radius:16px;box-shadow:0 4px 18px #0005;color:#102f52;font-family:Arial,sans-serif;line-height:1.2}
-#mp-text-controls button{appearance:none;border:2px solid #174d80;background:#174d80;color:white;border-radius:9px;min-width:48px;min-height:46px;padding:6px 9px;font:bold 20px Arial,sans-serif;cursor:pointer;touch-action:manipulation}
-#mp-text-controls button:focus-visible{outline:3px solid #f9b83d;outline-offset:2px}
-#mp-text-controls button:disabled{opacity:.42;cursor:default}
-#mp-text-controls .mp-reset{background:#fff;color:#174d80;font-size:16px;min-width:58px}
-#mp-text-controls .mp-level{font:bold 16px Arial,sans-serif;min-width:45px;text-align:center}
-@media(max-width:480px){#mp-text-controls{right:7px;bottom:7px;padding:5px;gap:4px}#mp-text-controls button{min-width:42px;min-height:42px;font-size:18px}#mp-text-controls .mp-level{font-size:14px;min-width:38px}}
-
-/* Missione Puccini v21: illustrazione di materia solo nella testata. */
-.hero{display:flex;align-items:center;gap:clamp(18px,4vw,38px);padding:clamp(18px,3vw,32px);border:3px solid #e7edf4;overflow:hidden}
-.subject-illustration{display:block;flex:0 0 auto;width:clamp(175px,27%,260px);max-height:360px;object-fit:contain;border-radius:22px;filter:drop-shadow(0 7px 8px #102e4c30)}
-.subject-hero-copy{min-width:0;flex:1}
-.subject-hero-copy .icon{display:none}
-.subject-hero-copy .lead{font-size:clamp(20px,2vw,26px);line-height:1.55}
-.subject-hero-copy h1{font-size:clamp(32px,4.5vw,56px);line-height:1.14;overflow-wrap:break-word}
-@media(max-width:650px){.hero{flex-direction:column;align-items:stretch;text-align:center}.subject-illustration{width:min(74%,255px);max-height:290px;align-self:center}.subject-hero-copy .lead{font-size:20px}}
-
-/* v22: intestazione panoramica; nessuna modifica alla logica dei giochi */
-.mp-real-header{background:#123f73;color:white;padding:12px clamp(14px,3vw,40px);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.mp-real-header a{white-space:nowrap;color:white;font-weight:800;font-size:clamp(15px,1.6vw,21px)}
-.mp-brand{display:flex;align-items:center;gap:12px}
-.mp-brand img{width:64px;height:64px;object-fit:contain}
-.mp-brand span{display:flex;flex-direction:column;line-height:1.2}
-.mp-brand strong{font-size:clamp(16px,1.7vw,22px)}
-.mp-brand small{font-size:clamp(14px,1.3vw,18px);font-weight:700}
-main{max-width:1150px}
-.hero{padding:0;overflow:hidden;border-radius:22px}
-.hero .subject-illustration{display:block;width:100%;height:auto;max-height:none;object-fit:cover;border-radius:0;margin:0}
-.hero .subject-hero-copy{padding:20px clamp(18px,3vw,32px)}
-.hero .subject-hero-copy .icon{display:none}
-.hero .subject-hero-copy h1{font-size:clamp(29px,4vw,44px)}
-@media(max-width:580px){.mp-real-header{padding:10px;gap:8px}.mp-brand img{width:44px;height:44px}.mp-real-header a{font-size:14px}.hero{border-radius:14px}}
-
-/* v23: banner realmente panoramico, indipendente dal vecchio layout a miniatura */
-main{max-width:1100px;margin:0 auto;padding:22px 18px}
-.hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:0!important;margin:0 0 24px!important;border:0!important;border-radius:18px!important;background:white!important;overflow:hidden!important;box-shadow:0 12px 35px #1b3d5720;text-align:left!important}
-.hero>.subject-illustration{display:block!important;flex:none!important;align-self:stretch!important;width:100%!important;max-width:none!important;max-height:none!important;height:auto!important;aspect-ratio: 4 / 1!important;object-fit:cover!important;object-position:center!important;border-radius:0!important;filter:none!important;margin:0!important}
-.hero>.subject-hero-copy{display:block!important;flex:none!important;width:100%!important;min-width:0!important;padding:20px 28px 24px!important;text-align:left!important}
-.hero>.subject-hero-copy h1{font-size:clamp(28px,3.2vw,43px)!important;margin:5px 0!important}
-.hero>.subject-hero-copy .lead{font-size:clamp(19px,2vw,24px)!important;margin:5px 0!important}
-.mp-real-header{flex-wrap:nowrap!important}
-@media(min-width:1200px){main{max-width:1160px}.hero>.subject-illustration{aspect-ratio: 4 / 1!important}}
-@media(max-width:650px){main{padding:12px!important}.hero{border-radius:14px!important}.hero>.subject-illustration{width:100%!important;aspect-ratio: 3 / 1!important;object-fit:cover!important;object-position:center!important}.hero>.subject-hero-copy{padding:18px!important}.mp-brand img{width:44px!important;height:44px!important}.mp-real-header a{font-size:14px!important}}
-</style><style> .puccini-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.puccini-gallery figure{margin:0;background:#fff;border:2px solid #e8dfd0;border-radius:12px;overflow:hidden}.puccini-gallery img{display:block;width:100%;height:155px;object-fit:contain;background:#f7f4ed}.puccini-gallery figcaption{text-align:center;padding:8px;font-size:14px;font-weight:700;color:#253b56}@media(max-width:600px){.puccini-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.puccini-gallery img{height:125px}}</style><style>
-.quiz-photo{margin:18px auto 20px;max-width:660px;border:2px solid #e6dfd0;border-radius:16px;overflow:hidden;background:#fffaf0;text-align:center}
-.quiz-photo img{display:block;width:100%;height:clamp(170px,28vw,290px);object-fit:contain;background:#f8f3e8}
-.quiz-photo figcaption{font-size:clamp(13px,1.3vw,16px);color:#35495b;line-height:1.45;padding:9px 14px;border-top:1px solid #e6dfd0}
-#question{margin-top:16px}
-</style></head><body><header class="mp-real-header"><span class="mp-brand"><img src="../logo_istituto_trasparente.png" alt="Logo I.C. Armando Sforzi"><span><strong>I.C. Armando Sforzi</strong><small>Istituto Comprensivo</small></span></span><a href="../index.html">← Tutti i laboratori</a></header><main><section class="hero"><img class="subject-illustration" src="banner_panorama.webp" alt="Illustrazione del laboratorio di musica con il ragazzo di Missione Puccini"><div class="subject-hero-copy"><div class="icon" aria-hidden="true">🎵</div><div class="eyebrow">Open Day · 12 dicembre 2026</div><h1>Musica</h1><p class="lead">Alla scoperta di Giacomo Puccini — Tocca le risposte sulla LIM o sul tablet. Non servono dati personali.</p></div></section><section class="card" id="intro"><h2>Pronto a esplorare? · Quiz Puccini (18 domande)</h2><p>Tre domande a sorpresa su Giacomo Puccini, spiegazioni dopo ogni risposta e un timbro finale sul tuo passaporto.</p><button class="action" onclick="start()">Inizia la missione</button></section><section class="card hidden" id="quiz" aria-live="polite"><div id="count" class="muted"></div><div class="progress" aria-hidden="true"><div id="bar"></div></div><figure id="questionPhoto" class="quiz-photo"><img id="questionImage" alt=""><figcaption id="photoCredit"></figcaption></figure><h2 id="question"></h2><div id="answers" class="choices"></div><div id="feedback" class="feedback hidden" role="status"></div><button id="next" class="action hidden" onclick="next()">Continua →</button></section><section class="card complete hidden" id="end"><div class="stamp">🏅</div><h2>Missione completata!</h2><p class="lead">Hai esplorato il laboratorio di <strong>Musica</strong>.</p><p>Mostra questa schermata al tutor e chiedi il timbro sul Passaporto dell’Esploratore.</p><button class="action" onclick="restart()">Ricomincia</button></section><p class="note muted">Progetto didattico per l’Open Day della Scuola Media G. Puccini · Prof. Marco Cigolotti · Creato con il supporto di AI. Nessun dato personale viene richiesto o salvato.</p></main><script>const DATA=[["In quale città nacque Giacomo Puccini?",["Lucca","Roma","Napoli"],0,"Puccini nacque a Lucca, in Toscana, nel 1858."],["Qual era il lavoro di Giacomo Puccini?",["Pittore","Astronauta","Compositore"],2,"Un compositore inventa e scrive musica."],["Che cosa compose soprattutto Puccini?",["Musica per videogiochi","Opere liriche","Canzoni rap"],1,"Puccini è famoso soprattutto per le sue opere liriche."],["In quale regione italiana si trova Lucca?",["Toscana","Sicilia","Piemonte"],0,"Lucca è una città della Toscana."],["Quale di questi titoli è un’opera di Puccini?",["Il flauto magico","Il barbiere di Siviglia","La Bohème"],2,"La Bohème è una delle opere più conosciute di Puccini."],["Quale di questi titoli è un’opera di Puccini?",["Carmen","Tosca","Aida"],1,"Tosca è un’opera composta da Giacomo Puccini."],["Come si chiama l’opera di Puccini ambientata in Giappone?",["La Bohème","Madama Butterfly","Tosca"],1,"Madama Butterfly è un’opera di Puccini ambientata in Giappone."],["Come si chiama l’opera di Puccini ambientata in una Cina immaginata?",["La Bohème","Gianni Schicchi","Turandot"],2,"Turandot è ambientata a Pechino, in una Cina rappresentata teatralmente."],["Che cosa fanno i cantanti in un’opera lirica?",["Suonano soltanto il tamburo","Raccontano una storia cantando","Parlano sempre senza musica"],1,"Nell’opera lirica la storia viene raccontata soprattutto attraverso il canto e la musica."],["Chi dirige l’orchestra durante uno spettacolo?",["Il direttore d’orchestra","Il costumista","Il bigliettaio"],0,"Il direttore d’orchestra guida i musicisti durante l’esecuzione."],["Che cosa si trova davanti al palcoscenico, nella buca d’orchestra?",["I pittori del teatro","Gli spettatori in piedi","I musicisti dell’orchestra"],2,"Nella buca d’orchestra suonano i musicisti che accompagnano i cantanti."],["A quale luogo vicino a Lucca è molto legato Puccini?",["Pompei","Torre del Lago","Cortina d’Ampezzo"],1,"Puccini visse a lungo a Torre del Lago, vicino al lago di Massaciuccoli."],["Dove si svolge uno spettacolo di opera lirica?",["Al cinema","In una sala da concerto","A teatro"],2,"L’opera lirica viene rappresentata a teatro, con cantanti, orchestra e scenografie."],["Come si chiama la famosa canzone dell’opera Turandot?",["Nessun dorma","Volare","Fratelli d’Italia"],0,"Nessun dorma è una celebre aria dell’opera Turandot di Puccini."],["Che cosa significa “libretto” in un’opera lirica?",["Il programma dei treni","Il testo della storia cantata","Un quaderno per disegnare"],1,"Il libretto contiene le parole e la storia dell’opera."],["Chi interpreta i personaggi di un’opera sul palcoscenico?",["Cantanti lirici","Arbitri","Fotografi"],0,"I cantanti lirici interpretano i personaggi attraverso canto e recitazione."],["Quale strumento musicale aveva in casa Puccini per comporre?",["Tromba","Pianoforte","Batteria"],1,"Puccini usava il pianoforte per studiare e comporre la sua musica."],["Quale elemento aiuta a creare emozioni in un’opera di Puccini?",["Il rumore del traffico","La musica dell’orchestra","Il fischio dell’arbitro"],1,"La musica accompagna la storia e aiuta a esprimere le emozioni dei personaggi."]];
-const PHOTOS=[
-{src:'puccini_ritratto.webp',alt:'Ritratto fotografico di Giacomo Puccini',credit:'Fotografia: Mario Nunes Vais · Fonte: Wikimedia Commons'},
-{src:'villa_puccini.webp',alt:'Villa Puccini a Torre del Lago',credit:'Villa Puccini, Torre del Lago · Fonte: Wikimedia Commons'},
-{src:'lago_massaciuccoli.webp',alt:'Panorama del lago di Massaciuccoli',credit:'Lago di Massaciuccoli · Fotografia da Panoramio, 2011 · Fonte: Wikimedia Commons'},
-{src:'la_boheme.webp',alt:'Manifesto storico della Bohème',credit:'Manifesto La Bohème: Adolfo Hohenstein · Fonte: Wikimedia Commons'},
-{src:'madama_butterfly.webp',alt:'Manifesto storico di Madama Butterfly',credit:'Manifesto Madama Butterfly: Leopoldo Metlicovitz, 1904 · Fonte: Wikimedia Commons'},
-{src:'turandot.webp',alt:'Manifesto dell’opera Turandot',credit:'Manifesto Turandot · Fonte: Wikimedia Commons'}
-];
-const PHOTO_BY_QUESTION=[0,0,3,2,3,0,4,5,3,0,3,1,3,5,4,4,1,5];
-const $=s=>document.querySelector(s);
-const shuffle=a=>{const out=a.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;};
-let questions=[],step=0,answered=false;
-function start(){questions=shuffle(DATA.map((q,i)=>({q,i}))).slice(0,3).map(({q,i})=>({title:q[0],photo:PHOTOS[PHOTO_BY_QUESTION[i]],explanation:q[3],answers:shuffle(q[1].map((label,i)=>({label,correct:i===q[2]})))}));step=0;$('#intro').classList.add('hidden');$('#end').classList.add('hidden');$('#quiz').classList.remove('hidden');render()}
-function render(){answered=false;const q=questions[step];$('#count').textContent=`Domanda ${step+1} di 3`;$('#bar').style.width=`${step/3*100}%`;const img=$('#questionImage');img.src=q.photo.src;img.alt=q.photo.alt;$('#photoCredit').textContent=q.photo.credit;$('#question').textContent=q.title;$('#answers').innerHTML='';$('#feedback').classList.add('hidden');$('#next').classList.add('hidden');q.answers.forEach((opt,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=opt.label;b.addEventListener('click',()=>choose(i));$('#answers').appendChild(b)})}
-function choose(i){if(answered)return;answered=true;const q=questions[step];const ok=q.answers[i].correct;document.querySelectorAll('.choice').forEach((b,j)=>{b.disabled=true;if(q.answers[j].correct)b.classList.add('correct');if(j===i&&!ok)b.classList.add('wrong')});$('#feedback').textContent=(ok?'✓ Ottimo! ':'La risposta giusta è: '+q.answers.find(a=>a.correct).label+'. ')+q.explanation;$('#feedback').classList.remove('hidden');$('#next').classList.remove('hidden')}
-function next(){step++;if(step===3){$('#quiz').classList.add('hidden');$('#end').classList.remove('hidden');$('#bar').style.width='100%'}else render()}
-function restart(){$('#end').classList.add('hidden');$('#intro').classList.remove('hidden')}
-</script><script>
-/* Controllo del testo in ogni pagina. La preferenza resta sul dispositivo. */
-(function(){
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missione Musica | Missione Puccini</title>
+<style>
+:root{--ink:#16375a;--blue:#174b8b;--purple:#7240bb;--bg:#edf5ff;--gold:#ffbf40}
+*{box-sizing:border-box}body{margin:0;font:18px/1.5 Arial,sans-serif;background:linear-gradient(140deg,#e4f4ff,#fff6e9);color:var(--ink)}
+header{background:#153f72;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px clamp(14px,4vw,36px);flex-wrap:wrap}
+header a{color:white;font-weight:700;font-size:17px} .brand{display:flex;align-items:center;gap:12px}.brand img{width:55px;height:55px;object-fit:contain}.brand span{display:block;font-weight:700}.brand small{display:block;font-size:13px}
+main{max-width:1060px;margin:auto;padding:20px 14px 40px}.hero{background:linear-gradient(125deg,#143f85,#7c46c8);border-radius:24px;padding:30px;color:white;box-shadow:0 12px 30px #204a7b24;position:relative;overflow:hidden}
+.hero:after{content:'♫ ♬ ♪';position:absolute;right:24px;top:15px;color:#ffdd6c;font-size:70px;opacity:.5;pointer-events:none}
+.hero h1{font-size:clamp(34px,6vw,57px);margin:0 0 7px}.hero p{margin:0;max-width:650px;font-size:20px}
+.panel{background:white;border-radius:22px;margin-top:20px;padding:clamp(18px,4vw,30px);box-shadow:0 8px 26px #183d6d19}
+h2{font-size:clamp(24px,3vw,34px);margin:0 0 12px}h3{margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.tile{border:3px solid #bfd4ef;border-radius:20px;background:#f3f9ff;padding:22px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;min-height:180px}.tile:hover,.tile:focus-visible{border-color:var(--purple)}.tile .emoji{font-size:44px;display:block}.tile strong{font-size:24px;display:block}.tile span{display:block}.tile:disabled{opacity:.55;cursor:not-allowed}
+button{font-family:inherit;touch-action:manipulation}.primary,.secondary{padding:13px 20px;min-height:52px;border-radius:13px;border:0;font-size:18px;font-weight:700;cursor:pointer}.primary{background:#16549b;color:white}.secondary{background:#e8f0fb;color:#123e70;border:2px solid #b2c8e5}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin:15px 0}.hidden{display:none!important}.muted{color:#4d6276}
+.staff{width:100%;display:block;border:3px solid #d5e5f5;border-radius:20px;background:white;max-height:430px;object-fit:contain}
+.answers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.answer{border:3px solid #b9d1ef;border-radius:14px;background:#f1f7ff;padding:16px 8px;font-size:23px;font-weight:800;min-height:68px;cursor:pointer;color:#123d68}
+.answer.correct{border-color:#16814c;background:#d9f6e5}.answer.wrong{border-color:#c54444;background:#ffe4e4}
+.feedback{border-left:6px solid #8653c5;background:#f3edff;border-radius:12px;padding:16px;margin:15px 0}
+.progress{height:13px;border-radius:20px;background:#dfeafa;overflow:hidden;margin:12px 0}.progress>div{background:#7750c3;height:100%;width:0}
+.medal{font-size:64px}.foot{text-align:center;font-size:13px;margin:24px auto;color:#3b536b}
+button:focus-visible,a:focus-visible{outline:4px solid #ffbc35;outline-offset:3px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.hero:after{font-size:45px}.answers{gap:6px}.answer{font-size:20px}.panel{padding:17px}}
+</style></head>
+<body><header><div class="brand"><img src="../logo_istituto_trasparente.png" alt="Logo I.C. Armando Sforzi"><div><span>I.C. Armando Sforzi</span><small>Istituto Comprensivo</small></div></div><a href="../index.html">← Tutti i laboratori</a></header>
+<main><div class="hero"><h1>🎵 Missione Musica</h1><p>Ascolta, osserva e mettiti alla prova! Scegli una delle sfide musicali.</p></div>
+<section class="panel" id="home"><h2>Scegli il tuo percorso</h2><div class="grid">
+<button class="tile" id="go-notes"><span class="emoji">🎼</span><strong>Caccia alla nota!</strong><span>Guarda la nota sul pentagramma, ascolta il suono e scegli il nome giusto.</span></button>
+<button class="tile" id="go-artists"><span class="emoji">🎤</span><strong>Indovina l'artista!</strong><span>Due strade: grandi compositori e cantanti o cantautori.</span></button>
+</div></section>
+<section class="panel hidden" id="artist-menu"><h2>Indovina l'artista!</h2><p>Seleziona la sfida che preferisci.</p><div class="grid">
+<button class="tile" id="go-composers"><span class="emoji">🎹</span><strong>Grandi compositori</strong><span>12 domande · Medaglia con almeno 6 risposte corrette</span></button>
+<button class="tile" id="go-singers"><span class="emoji">🎙️</span><strong>Cantanti e cantautori</strong><span>12 domande · Medaglia con almeno 6 risposte corrette</span></button>
+</div><div class="actions"><button class="secondary" data-home>← Torna ai percorsi</button></div></section>
+<section class="panel hidden" id="artist-pending"><h2 id="pending-title">Artisti</h2><p>Questo percorso è predisposto. Le 12 domande e le immagini degli artisti saranno inserite dopo la scelta e l'approvazione del materiale. La medaglia richiederà almeno 6 risposte corrette su 12.</p><div class="actions"><button class="secondary" id="back-artists">← Scegli un altro percorso artisti</button><button class="secondary" data-home>← Torna a Musica</button></div></section>
+<section class="panel hidden" id="notes-intro"><h2>🎼 Caccia alla nota!</h2><p>Le note sono le stesse dei pentagrammi del professore. Ascolta il suono e riconosci la nota fra tre risposte.</p><p><strong>5 domande casuali</strong> per partita, scelte fra 12 note. Con almeno 3 risposte corrette conquisti la medaglia musicale.</p><div class="actions"><button class="primary" id="start-notes">▶ Inizia la sfida</button><button class="secondary" data-home>← Torna ai percorsi</button></div></section>
+<section class="panel hidden" id="notes-quiz"><div id="counter" aria-live="polite"></div><div class="progress"><div id="bar"></div></div><h2>Quale nota vedi e ascolti?</h2><img class="staff" id="note-img" alt="Nota musicale sul pentagramma in chiave di violino">
+<div class="actions"><button class="primary" id="play-note">🔊 Ascolta la nota</button><button class="secondary" id="replay-note">↻ Riascolta</button></div><div class="answers" id="answers"></div><div class="feedback hidden" id="feedback" aria-live="polite"></div><div class="actions"><button class="primary hidden" id="next">Prossima domanda →</button></div></section>
+<section class="panel hidden" id="notes-end"><div class="medal" id="medal"></div><h2 id="result-title"></h2><p id="result-text"></p><div class="actions"><button class="primary" id="retry">↻ Riprova</button><button class="secondary" data-home>← Torna ai percorsi</button><a class="secondary" href="../index.html">← Tutti i laboratori</a></div></section>
+<p class="foot">Scuola Media G. Puccini · Prof. Marco Cigolotti — CIGO STUDIO · Creato con il supporto di AI · Nessun dato personale richiesto o salvato.</p>
+</main><script>
 'use strict';
-var key='missione-puccini-text-scale';
-var scale=1;
-try{var saved=Number(localStorage.getItem(key));if(saved>=1&&saved<=1.6)scale=saved;}catch(e){}
-var selectors='h1,h2,h3,h4,p,small,button,a,label,legend,li,dt,dd,summary,blockquote,figcaption,.eyebrow,.lead,.feedback,.note,.muted,.tile strong,.tile small,.tile .go,.school small,.counter,.guide-label,.brand div,.progress,.bubble,.option,.choice,.explain,.quiz-card .num,.headline small,.headline p,.intro,.foot';
-var originals=new WeakMap();
-var bar=document.createElement('div');bar.id='mp-text-controls';bar.setAttribute('role','group');bar.setAttribute('aria-label','Dimensione del testo');
-bar.innerHTML='<button type="button" id="mp-smaller" aria-label="Riduci il testo">A−</button><span id="mp-text-level" class="mp-level" aria-live="polite">100%</span><button type="button" id="mp-bigger" aria-label="Ingrandisci il testo">A+</button><button type="button" class="mp-reset" id="mp-normal" aria-label="Ripristina dimensione normale">100%</button>';
-function elements(){return Array.from(document.querySelectorAll(selectors)).filter(function(el){return !bar.contains(el)&&!el.closest('#mp-text-controls')});}
-function baseline(el){var v=originals.get(el);if(v===undefined){v=parseFloat(getComputedStyle(el).fontSize);if(!Number.isFinite(v))v=18;originals.set(el,v);}return v;}
-function apply(){
-  elements().forEach(function(el){el.style.fontSize=(baseline(el)*scale).toFixed(2)+'px';});
-  document.getElementById('mp-text-level').textContent=Math.round(scale*100)+'%';
-  document.getElementById('mp-smaller').disabled=scale<=1.001;
-  document.getElementById('mp-bigger').disabled=scale>=1.599;
-  try{localStorage.setItem(key,String(scale));}catch(e){}
-}
-function set(next){scale=Math.max(1,Math.min(1.6,Math.round(next*10)/10));apply();}
-bar.querySelector('#mp-smaller').addEventListener('click',function(){set(scale-.1)});
-bar.querySelector('#mp-bigger').addEventListener('click',function(){set(scale+.1)});
-bar.querySelector('#mp-normal').addEventListener('click',function(){set(1)});
-function init(){document.body.appendChild(bar);apply();}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
+const labels=['DO','RE','MI','FA','SOL','LA','SI','DO','RE','MI','FA','SOL'];
+const noteItems=labels.map((label,i)=>({label,id:String(i+1).padStart(2,'0'),octave:i<7?4:5}));
+const panels=['home','artist-menu','artist-pending','notes-intro','notes-quiz','notes-end'];
+const el=id=>document.getElementById(id);
+function show(id){panels.forEach(p=>el(p).classList.toggle('hidden',p!==id));window.scrollTo({top:0,behavior:'instant'});}
+document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>{stopAudio();show('home')});
+el('go-notes').onclick=()=>show('notes-intro');
+el('go-artists').onclick=()=>show('artist-menu');
+el('go-composers').onclick=()=>{el('pending-title').textContent='Grandi compositori';show('artist-pending')};
+el('go-singers').onclick=()=>{el('pending-title').textContent='Cantanti e cantautori';show('artist-pending')};
+el('back-artists').onclick=()=>show('artist-menu');
+const shuffle=items=>{let a=items.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let queue=[],step=0,score=0,locked=false,audio=null;
+function stopAudio(){if(audio){audio.pause();audio.currentTime=0;audio=null}}
+function play(){stopAudio();let n=queue[step];if(!n)return;audio=new Audio('note/'+n.id+'.wav');audio.play().catch(()=>{el('feedback').textContent='Audio non disponibile su questo dispositivo. Puoi comunque riconoscere la nota guardando il pentagramma.';el('feedback').classList.remove('hidden')})}
+function begin(){queue=shuffle(noteItems).slice(0,5);step=0;score=0;show('notes-quiz');render()}
+function render(){locked=false;let n=queue[step];el('counter').textContent='Domanda '+(step+1)+' di 5 · Risposte corrette: '+score;el('bar').style.width=(step/5*100)+'%';el('note-img').src='note/'+n.id+'.webp';el('note-img').alt='Pentagramma con una nota musicale da riconoscere';el('feedback').classList.add('hidden');el('next').classList.add('hidden');
+let options=shuffle([n.label,...shuffle([...new Set(labels)].filter(x=>x!==n.label)).slice(0,2)]);
+el('answers').replaceChildren();options.forEach(label=>{let b=document.createElement('button');b.className='answer';b.textContent=label;b.onclick=()=>answer(b,label);el('answers').appendChild(b)})}
+function answer(button,label){if(locked)return;locked=true;stopAudio();let correct=queue[step].label;let ok=label===correct;if(ok)score++;
+el('answers').querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.textContent===correct)b.classList.add('correct');if(b===button&&!ok)b.classList.add('wrong')});
+el('feedback').textContent=ok?'✓ Corretto! È la nota '+correct+'.':'La risposta corretta è '+correct+'. Ascolta e osserva ancora la nota.';el('feedback').classList.remove('hidden');el('next').textContent=step===4?'Vedi il risultato →':'Prossima domanda →';el('next').classList.remove('hidden')}
+function next(){stopAudio();step++;if(step<5){render();return}let passed=score>=3;el('medal').textContent=passed?'🏅':'🎵';el('result-title').textContent=passed?'Medaglia musicale conquistata!':'Riprova la sfida!';el('result-text').textContent='Hai riconosciuto '+score+' note su 5. '+(passed?'Ottimo lavoro!':'Per la medaglia servono almeno 3 risposte corrette su 5.');show('notes-end')}
+el('start-notes').onclick=begin;el('retry').onclick=begin;el('play-note').onclick=play;el('replay-note').onclick=play;el('next').onclick=next;
 </script></body></html>
