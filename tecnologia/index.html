@@ -34,7 +34,7 @@ if(t==='body'){
  for(let x of [-.32,0,.32]){b=ball(.085,x===0?'#ff8b67':'#ffdb68');b.position.set(x,-.29,.68);g.add(b)}
  for(let x of [-1,1]){b=ball(.17,'#243d5c');b.position.set(x*(W/2+.03),H*.28,0);g.add(b)}
 }else if(t==='head'){
- if(robotHeadStyle==='round'){b=ball(.76,robotHeadColor);b.scale.set(1, .82, .88);g.add(b)}else if(robotHeadStyle==='future'){b=roundedBox(1.65,.96,1.16,robotHeadColor,.34);g.add(b);const fin=roundedBox(1.30,.12,.65,'#846ac4',.05);fin.position.y=.56;g.add(fin)}else{b=roundedBox(1.48,1.10,1.16,'#ffe07d',.25);g.add(b)}
+ if(robotHeadStyle==='round'){b=ball(.76,robotHeadColor);b.scale.set(1, .82, .88);g.add(b)}else if(robotHeadStyle==='future'){b=roundedBox(1.65,.96,1.16,robotHeadColor,.34);g.add(b);const fin=roundedBox(1.30,.12,.65,'#846ac4',.05);fin.position.y=.56;g.add(fin)}else{b=roundedBox(1.48,1.10,1.16,robotHeadColor,.25);g.add(b)}
  b=roundedBox(1.18,.57,.10,'#314963',.13);b.position.set(0,.09,.63);g.add(b);
  for(let x of [-.35,.35]){b=ball(.205,'#a8f4ff');b.position.set(x,.12,.73);g.add(b);b=ball(.08,'#1d4b6a');b.position.set(x,.12,.90);g.add(b);b=ball(.035,'#ffffff');b.position.set(x-.04,.17,.96);g.add(b)}
  b=roundedBox(.48,.07,.07,'#e26c75',.03);b.position.set(0,-.29,.68);g.add(b);
